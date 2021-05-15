@@ -10,6 +10,6 @@ interface APIService {
     @GET(Endpoint.GET_STATES_URL)
     suspend fun getStateList(): GetStateAPIResponse
 
-    @GET(Endpoint.GET_DISTRICTS_URL + "/{stateId}")
+    @GET(Endpoint.GET_DISTRICTS_URL + "{stateId}")
     suspend fun getDistrictList(@Path("stateId") stateId: Long): GetDistrictsAPIResponse
 }
