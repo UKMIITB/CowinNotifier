@@ -1,6 +1,7 @@
 package com.example.cowinnotifier
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 //        viewModel.loadDistrictList(1)
 
         viewModel.stateListLiveData.observe(this, Observer { it ->
-            print(it.toString())
+            Log.d("TAG", it.toString())
         })
 
 //        viewModel.districtListLiveData.observe(this, Observer { it ->
