@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cowinnotifier.model.District
@@ -15,6 +16,8 @@ import com.example.cowinnotifier.repository.room.Dao
 import com.example.cowinnotifier.utils.CoroutineUtil
 import com.example.cowinnotifier.viewmodel.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.progressBar
+import kotlinx.android.synthetic.main.splash_screen.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     private var appDatabase: AppDatabase? = null
     private var dao: Dao? = null
 
-    private var stateList: ArrayList<com.example.cowinnotifier.model.State>? = null
+    private var stateList: ArrayList<State>? = null
     private var districtList: ArrayList<District>? = null
 
     private val IS_STATE_DATA_LOADED: String = "isStateDataLoaded"
@@ -31,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         init()
+        searchButtonsClickListener()
     }
 
     private fun init() {
@@ -70,6 +74,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadStateSpinnerData() {
+        progressBar.visibility = View.VISIBLE
         CoroutineUtil.io {
             stateList = dao?.getAllStatesList() as ArrayList
 
@@ -82,6 +87,8 @@ class MainActivity : AppCompatActivity() {
                 val adapter =
                     ArrayAdapter(this, android.R.layout.simple_spinner_item, adapterStateList)
                 spinner_state?.adapter = adapter
+
+                progressBar.visibility = View.GONE
             }
             spinner_state?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -90,6 +97,7 @@ class MainActivity : AppCompatActivity() {
                     position: Int,
                     id: Long
                 ) {
+                    progressBar.visibility = View.VISIBLE
                     loadDistrictSpinnerData(stateList?.get(position)?.state_id)
                 }
 
@@ -121,26 +129,10 @@ class MainActivity : AppCompatActivity() {
                             adapterDistrictList
                         )
                     spinner_district.adapter = adapter
+                    progressBar.visibility = View.GONE
                 }
-
-                spinner_district.onItemSelectedListener =
-                    object : AdapterView.OnItemSelectedListener {
-                        override fun onItemSelected(
-                            parent: AdapterView<*>?,
-                            view: View?,
-                            position: Int,
-                            id: Long
-                        ) {
-
-                        }
-
-                        override fun onNothingSelected(parent: AdapterView<*>?) {
-                            TODO("Not yet implemented")
-                        }
-                    }
             }
         }
-
     }
 
     private fun loadDistrictListInBackground(state_id: Long?) {
@@ -155,6 +147,23 @@ class MainActivity : AppCompatActivity() {
             runOnUiThread {
                 loadDistrictSpinnerData(state_id)
             }
+        }
+    }
+
+    private fun searchButtonsClickListener() {
+        button_pincode_search.setOnClickListener {
+            val pinEntered = edit_text_pincode.text.toString()
+
+            if (pinEntered.length != 6) {
+                Toast.makeText(this, "Please enter a valid pincode", Toast.LENGTH_SHORT).show()
+            } else {
+                //TODO -> move to result screen
+            }
+        }
+
+        button_district_search.setOnClickListener {
+            val district_id = districtList?.get(spinner_district.selectedItemPosition)?.district_id
+            //TODO -> move to result screen
         }
     }
 }
