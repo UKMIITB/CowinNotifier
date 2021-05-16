@@ -1,5 +1,7 @@
 package com.example.cowinnotifier.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 data class GetStateAPIResponse(
@@ -7,4 +9,8 @@ data class GetStateAPIResponse(
     val stateList: List<State>
 )
 
-data class State(val state_id: Long, val state_name: String)
+@Entity(tableName = "State")
+data class State(
+    @PrimaryKey
+    val state_id: Long, val state_name: String
+)
