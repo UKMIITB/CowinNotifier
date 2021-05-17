@@ -1,6 +1,7 @@
-package com.example.cowinnotifier
+package com.example.cowinnotifier.ui
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
@@ -9,19 +10,18 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.example.cowinnotifier.R
 import com.example.cowinnotifier.model.District
 import com.example.cowinnotifier.model.State
 import com.example.cowinnotifier.repository.room.AppDatabase
 import com.example.cowinnotifier.repository.room.Dao
 import com.example.cowinnotifier.utils.CoroutineUtil
-import com.example.cowinnotifier.viewmodel.MainActivityViewModel
+import com.example.cowinnotifier.viewmodel.ActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.progressBar
-import kotlinx.android.synthetic.main.splash_screen.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel: MainActivityViewModel by viewModels()
+    private val viewModel: ActivityViewModel by viewModels()
 
     private var appDatabase: AppDatabase? = null
     private var dao: Dao? = null
@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         init()
-        searchButtonsClickListener()
     }
 
     private fun init() {
@@ -45,12 +44,17 @@ class MainActivity : AppCompatActivity() {
         val isStateDataLoaded = sharedPref.getBoolean(IS_STATE_DATA_LOADED, false)
 
         if (isStateDataLoaded) {
-            setContentView(R.layout.activity_main)
-            loadStateSpinnerData()
+            loadActivityMainScreen()
         } else {
             setContentView(R.layout.splash_screen)
             loadStateListInBackground(sharedPref)
         }
+    }
+
+    private fun loadActivityMainScreen() {
+        setContentView(R.layout.activity_main)
+        searchButtonsClickListener()
+        loadStateSpinnerData()
     }
 
     private fun loadStateListInBackground(sharedPref: SharedPreferences) {
@@ -67,8 +71,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             runOnUiThread {
-                setContentView(R.layout.activity_main)
-                loadStateSpinnerData()
+                loadActivityMainScreen()
             }
         }
     }
@@ -157,13 +160,20 @@ class MainActivity : AppCompatActivity() {
             if (pinEntered.length != 6) {
                 Toast.makeText(this, "Please enter a valid pincode", Toast.LENGTH_SHORT).show()
             } else {
-                //TODO -> move to result screen
+                startActivityFromIntent("pincode", pinEntered)
             }
         }
 
         button_district_search.setOnClickListener {
             val district_id = districtList?.get(spinner_district.selectedItemPosition)?.district_id
-            //TODO -> move to result screen
+            startActivityFromIntent("district_id", district_id.toString())
         }
+    }
+
+    private fun startActivityFromIntent(key: String, value: String) {
+        val intent = Intent(this, ResultActivity::class.java).apply {
+            putExtra(key, value)
+        }
+        startActivity(intent)
     }
 }
