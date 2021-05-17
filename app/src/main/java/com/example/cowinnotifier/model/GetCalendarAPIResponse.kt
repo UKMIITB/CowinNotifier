@@ -2,7 +2,7 @@ package com.example.cowinnotifier.model
 
 import com.google.gson.annotations.SerializedName
 
-data class DistrictCalendarAPIResponse(
+data class GetCalendarAPIResponse(
     @SerializedName("centers")
     val centerList: List<Center>
 )

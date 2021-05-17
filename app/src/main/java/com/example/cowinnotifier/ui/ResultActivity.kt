@@ -28,7 +28,21 @@ class ResultActivity : AppCompatActivity() {
         if (intent.hasExtra("district_id")) {
             startDistrictWiseSearch(intent)
         } else if (intent.hasExtra("pincode")) {
-//            startPincodeWiseSearch(intent)
+            startPincodeWiseSearch(intent)
+        }
+    }
+
+    private fun startPincodeWiseSearch(intent: Intent) {
+        updateProgressBar(View.VISIBLE)
+        val pincode = intent.getStringExtra("pincode")
+        val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
+
+        CoroutineUtil.io {
+            val centerList = viewModel.getCalendarByPincodeList(pincode!!, currentDate)
+
+            runOnUiThread {
+                setUpCenterAdapter(centerList)
+            }
         }
     }
 

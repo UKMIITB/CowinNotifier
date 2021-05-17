@@ -24,4 +24,8 @@ class ActivityViewModel : ViewModel() {
     suspend fun getCalendarByDistrictList(district_id: String, date: String): List<Center> {
         return apiRepository.getCalendarByDistrict(district_id, date)
     }
+
+    suspend fun getCalendarByPincodeList(pincode: String, date: String): List<Center> {
+        return apiRepository.getCalendarByPincode(pincode, date)
+    }
 }
