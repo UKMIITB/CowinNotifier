@@ -62,26 +62,19 @@ class ActivityViewModel @Inject constructor(private val apiRepository: APIReposi
         }
     }
 
-    fun getCalendarByDistrictList(district_id: String, date: String): LiveData<List<Center>> {
-        CoroutineUtil.io {
-            kotlin.runCatching {
-                apiRepository.getCalendarByDistrict(district_id, date)
-            }.onSuccess { centerAPIResponse ->
-                centerList.postValue(centerAPIResponse)
-            }
+    fun loadCalendarByDistrict(district_id: String, date: String) = CoroutineUtil.io {
+        kotlin.runCatching {
+            apiRepository.getCalendarByDistrict(district_id, date)
+        }.onSuccess { centerAPIResponse ->
+            centerList.postValue(centerAPIResponse)
         }
-        return centerList
     }
 
-
-    fun getCalendarByPincodeList(pincode: String, date: String): LiveData<List<Center>> {
-        CoroutineUtil.io {
-            kotlin.runCatching {
-                apiRepository.getCalendarByPincode(pincode, date)
-            }.onSuccess { centerAPIResponse ->
-                centerList.postValue(centerAPIResponse)
-            }
+    fun loadCalendarByPincode(pincode: String, date: String) = CoroutineUtil.io {
+        kotlin.runCatching {
+            apiRepository.getCalendarByPincode(pincode, date)
+        }.onSuccess { centerAPIResponse ->
+            centerList.postValue(centerAPIResponse)
         }
-        return centerList
     }
 }

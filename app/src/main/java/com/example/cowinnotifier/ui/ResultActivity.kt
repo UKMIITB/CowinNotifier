@@ -22,8 +22,7 @@ class ResultActivity : AppCompatActivity() {
     private val viewModel: ActivityViewModel by viewModels()
 
     private val centerList = ArrayList<Center>()
-    private val layoutManager = LinearLayoutManager(this)
-    private val centerAdapter = CenterAdapter(centerList)
+    private lateinit var centerAdapter: CenterAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +38,16 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun init() {
+        val layoutManager = LinearLayoutManager(this)
+        centerAdapter = CenterAdapter(centerList)
+
         recyclerview_center_list.layoutManager = layoutManager
         recyclerview_center_list.adapter = centerAdapter
+
+        viewModel.observeCenterList().observe(this, {
+            centerAdapter.updateAdapterData(it)
+            updateProgressBar(View.GONE)
+        })
     }
 
     private fun startPincodeWiseSearch(intent: Intent) {
@@ -48,12 +55,7 @@ class ResultActivity : AppCompatActivity() {
         val pincode = intent.getStringExtra("pincode")
         val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
 
-
-        viewModel.getCalendarByPincodeList(pincode!!, currentDate)
-            .observe(this, {
-                centerAdapter.updateAdapterData(it)
-                updateProgressBar(View.GONE)
-            })
+        viewModel.loadCalendarByPincode(pincode!!, currentDate)
     }
 
     private fun startDistrictWiseSearch(intent: Intent) {
@@ -61,11 +63,7 @@ class ResultActivity : AppCompatActivity() {
         val district_id = intent.getStringExtra("district_id")
         val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
 
-        viewModel.getCalendarByDistrictList(district_id!!, currentDate)
-            .observe(this, {
-                centerAdapter.updateAdapterData(it)
-                updateProgressBar(View.GONE)
-            })
+        viewModel.loadCalendarByDistrict(district_id!!, currentDate)
     }
 
     private fun updateProgressBar(visibility: Int) {

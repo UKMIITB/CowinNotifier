@@ -39,10 +39,10 @@ class MainActivity : AppCompatActivity() {
         spinner_state?.adapter = stateListAdapter
         spinner_district.adapter = districtListAdapter
 
+        setupSpinnerDataObserver()
         loadStateSpinnerData()
         setupSpinnerClickListener()
         setupSearchButtonClickListener()
-        setupSpinnerDataObserver()
     }
 
     private fun setupSpinnerClickListener() {
@@ -83,12 +83,12 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    fun loadStateSpinnerData() {
+    private fun loadStateSpinnerData() {
         progressBar.visibility = View.VISIBLE
         viewModel.loadStateListData()
     }
 
-    fun loadDistrictSpinnerData(state_id: Long) {
+    private fun loadDistrictSpinnerData(state_id: Long) {
         progressBar.visibility = View.VISIBLE
         viewModel.loadDistrictListData(state_id)
     }
