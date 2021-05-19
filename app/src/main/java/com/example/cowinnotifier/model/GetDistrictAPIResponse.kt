@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-data class GetDistrictsAPIResponse(
+data class GetDistrictAPIResponse(
     @SerializedName("districts")
     val districtList: List<District>
 )
@@ -13,4 +13,8 @@ data class GetDistrictsAPIResponse(
 data class District(
     @PrimaryKey
     val district_id: Long, val district_name: String, var state_id: Long
-)
+) {
+    override fun toString(): String {
+        return district_name
+    }
+}

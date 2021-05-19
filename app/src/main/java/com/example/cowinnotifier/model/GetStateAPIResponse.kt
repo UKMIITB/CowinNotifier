@@ -13,4 +13,8 @@ data class GetStateAPIResponse(
 data class State(
     @PrimaryKey
     val state_id: Long, val state_name: String
-)
+) {
+    override fun toString(): String {
+        return state_name
+    }
+}

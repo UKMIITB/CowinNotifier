@@ -8,37 +8,43 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.cowinnotifier.R
 import com.example.cowinnotifier.model.District
 import com.example.cowinnotifier.model.State
 import com.example.cowinnotifier.repository.room.AppDatabase
 import com.example.cowinnotifier.repository.room.Dao
-import com.example.cowinnotifier.utils.CoroutineUtil
 import com.example.cowinnotifier.viewmodel.ActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel: ActivityViewModel by viewModels()
+    private lateinit var viewModel: ActivityViewModel
 
-    private var appDatabase: AppDatabase? = null
-    private var dao: Dao? = null
+    private lateinit var appDatabase: AppDatabase
+    private lateinit var dao: Dao
+    private val stateList = ArrayList<State>()
+    private val districtList = ArrayList<District>()
 
-    private var stateList: ArrayList<State>? = null
-    private var districtList: ArrayList<District>? = null
+    private val stateListAdapter =
+        ArrayAdapter(this, android.R.layout.simple_spinner_item, stateList)
+    private val districtListAdapter =
+        ArrayAdapter(this, android.R.layout.simple_spinner_item, districtList)
 
     private val IS_STATE_DATA_LOADED: String = "isStateDataLoaded"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.splash_screen)
         init()
     }
 
     private fun init() {
-        appDatabase = AppDatabase.getDatabaseInstance(this)
-        dao = appDatabase?.dao()
+        viewModel = ViewModelProvider(this).get(ActivityViewModel::class.java)
+        //TODO -> pass dao to viewmodel
+        appDatabase = AppDatabase.getDatabaseInstance(this)!!
+        dao = appDatabase.dao()
 
         val sharedPref: SharedPreferences = this.getPreferences(Context.MODE_PRIVATE)
         val isStateDataLoaded = sharedPref.getBoolean(IS_STATE_DATA_LOADED, false)
@@ -46,111 +52,77 @@ class MainActivity : AppCompatActivity() {
         if (isStateDataLoaded) {
             loadActivityMainScreen()
         } else {
-            setContentView(R.layout.splash_screen)
-            loadStateListInBackground(sharedPref)
-        }
-    }
-
-    private fun loadActivityMainScreen() {
-        setContentView(R.layout.activity_main)
-        searchButtonsClickListener()
-        loadStateSpinnerData()
-    }
-
-    private fun loadStateListInBackground(sharedPref: SharedPreferences) {
-        CoroutineUtil.io {
-
-            stateList = viewModel.loadStateList() as ArrayList
-            for (eachState in stateList!!) {
-                dao?.insertState(eachState)
-            }
+            viewModel.addStateListInDB()
 
             with(sharedPref.edit()) {
                 putBoolean(IS_STATE_DATA_LOADED, true)
                 apply()
             }
 
-            runOnUiThread {
-                loadActivityMainScreen()
+            loadActivityMainScreen()
+        }
+    }
+
+    private fun loadActivityMainScreen() {
+        setContentView(R.layout.activity_main)
+
+        spinner_state?.adapter = stateListAdapter
+        spinner_district.adapter = districtListAdapter
+
+        spinner_state?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                loadDistrictSpinnerData(stateList[position].state_id)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
             }
         }
+
+        searchButtonsClickListener()
+        loadStateSpinnerData()
     }
 
     private fun loadStateSpinnerData() {
         progressBar.visibility = View.VISIBLE
-        CoroutineUtil.io {
-            stateList = dao?.getAllStatesList() as ArrayList
 
-            val adapterStateList = ArrayList<String>()
-            for (eachState in stateList!!) {
-                adapterStateList.add(eachState.state_name)
-            }
+        viewModel.getStateListFromDB().observe(this, { stateList ->
 
-            runOnUiThread {
-                val adapter =
-                    ArrayAdapter(this, android.R.layout.simple_spinner_item, adapterStateList)
-                spinner_state?.adapter = adapter
+            this.stateList.clear()
+            this.stateList.addAll(stateList)
+            stateListAdapter.addAll(stateList)
+            stateListAdapter.notifyDataSetChanged()
 
-                progressBar.visibility = View.GONE
-            }
-            spinner_state?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    progressBar.visibility = View.VISIBLE
-                    loadDistrictSpinnerData(stateList?.get(position)?.state_id)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-
-                }
-            }
-        }
+            progressBar.visibility = View.GONE
+        })
     }
 
     fun loadDistrictSpinnerData(state_id: Long?) {
-        CoroutineUtil.io {
-            districtList = dao?.getAllDistrictList(state_id!!) as ArrayList
+        progressBar.visibility = View.VISIBLE
 
-            if (districtList?.size == 0) {
+        viewModel.getDistrictListFromDB(state_id!!).observe(this, { districtList ->
+
+            if (districtList.isEmpty()) {
                 loadDistrictListInBackground(state_id)
             } else {
-                val adapterDistrictList = ArrayList<String>()
 
-                for (eachDistrict in districtList!!) {
-                    adapterDistrictList.add(eachDistrict.district_name)
-                }
+                this.districtList.clear()
+                this.districtList.addAll(districtList)
+                districtListAdapter.addAll(districtList)
+                districtListAdapter.notifyDataSetChanged()
 
-                runOnUiThread {
-                    val adapter =
-                        ArrayAdapter(
-                            this,
-                            android.R.layout.simple_spinner_item,
-                            adapterDistrictList
-                        )
-                    spinner_district.adapter = adapter
-                    progressBar.visibility = View.GONE
-                }
+                progressBar.visibility = View.GONE
             }
-        }
+        })
     }
 
     private fun loadDistrictListInBackground(state_id: Long?) {
-        CoroutineUtil.io {
-            districtList = viewModel.loadDistrictList(state_id!!) as ArrayList
-
-            for (eachDistrict in districtList!!) {
-                eachDistrict.state_id = state_id
-                dao?.insertDistrict(eachDistrict)
-            }
-
-            runOnUiThread {
-                loadDistrictSpinnerData(state_id)
-            }
-        }
+        viewModel.addDistrictListInDB(state_id!!)
+        loadDistrictSpinnerData(state_id)
     }
 
     private fun searchButtonsClickListener() {
@@ -165,8 +137,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         button_district_search.setOnClickListener {
-            val district_id = districtList?.get(spinner_district.selectedItemPosition)?.district_id
-            startActivityFromIntent("district_id", district_id.toString())
+            val districtId = districtList[spinner_district.selectedItemPosition].district_id
+            startActivityFromIntent("district_id", districtId.toString())
         }
     }
 

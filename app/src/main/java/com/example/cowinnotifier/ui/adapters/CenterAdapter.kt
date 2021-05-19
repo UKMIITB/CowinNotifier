@@ -9,7 +9,7 @@ import com.example.cowinnotifier.R
 import com.example.cowinnotifier.model.Center
 import kotlinx.android.synthetic.main.row_center.view.*
 
-class CenterAdapter(private val centerList: List<Center>) :
+class CenterAdapter(private var centerList: List<Center>) :
     RecyclerView.Adapter<CenterAdapter.CenterViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CenterViewHolder {
@@ -36,6 +36,11 @@ class CenterAdapter(private val centerList: List<Center>) :
 
     override fun getItemCount(): Int {
         return centerList.size
+    }
+
+    fun updateAdapterData(centerList: List<Center>) {
+        this.centerList = centerList
+        notifyDataSetChanged()
     }
 
     inner class CenterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -2,10 +2,10 @@ package com.example.cowinnotifier.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cowinnotifier.R
 import com.example.cowinnotifier.model.Center
@@ -15,16 +15,22 @@ import com.example.cowinnotifier.viewmodel.ActivityViewModel
 import kotlinx.android.synthetic.main.activity_result.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ResultActivity : AppCompatActivity() {
 
     private val viewModel: ActivityViewModel by viewModels()
 
+    private val centerList = ArrayList<Center>()
+    private val layoutManager = LinearLayoutManager(this)
+    private val centerAdapter = CenterAdapter(centerList)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
 
-        val intent = intent
+        init()
+
         if (intent.hasExtra("district_id")) {
             startDistrictWiseSearch(intent)
         } else if (intent.hasExtra("pincode")) {
@@ -32,22 +38,22 @@ class ResultActivity : AppCompatActivity() {
         }
     }
 
+    private fun init() {
+        recyclerview_center_list.layoutManager = layoutManager
+        recyclerview_center_list.adapter = centerAdapter
+    }
+
     private fun startPincodeWiseSearch(intent: Intent) {
         updateProgressBar(View.VISIBLE)
         val pincode = intent.getStringExtra("pincode")
         val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
 
-        CoroutineUtil.io {
-            val centerList = viewModel.getCalendarByPincodeList(pincode!!, currentDate)
 
-            runOnUiThread {
-                setUpCenterAdapter(centerList)
-            }
-        }
-    }
-
-    private fun updateProgressBar(visibility: Int) {
-        progressBar.visibility = visibility
+        viewModel.getCalendarByPincodeList(pincode!!, currentDate)
+            .observe(this, {
+                centerAdapter.updateAdapterData(it)
+                updateProgressBar(View.GONE)
+            })
     }
 
     private fun startDistrictWiseSearch(intent: Intent) {
@@ -55,22 +61,14 @@ class ResultActivity : AppCompatActivity() {
         val district_id = intent.getStringExtra("district_id")
         val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
 
-        CoroutineUtil.io {
-            val centerList = viewModel.getCalendarByDistrictList(district_id!!, currentDate)
-
-            runOnUiThread {
-                setUpCenterAdapter(centerList)
-            }
-        }
+        viewModel.getCalendarByDistrictList(district_id!!, currentDate)
+            .observe(this, {
+                centerAdapter.updateAdapterData(it)
+                updateProgressBar(View.GONE)
+            })
     }
 
-    private fun setUpCenterAdapter(centerList: List<Center>) {
-        updateProgressBar(View.GONE)
-
-        val layoutManager = LinearLayoutManager(this)
-        val centerAdapter = CenterAdapter(centerList)
-
-        recyclerview_center_list.layoutManager = layoutManager
-        recyclerview_center_list.adapter = centerAdapter
+    private fun updateProgressBar(visibility: Int) {
+        progressBar.visibility = visibility
     }
 }
