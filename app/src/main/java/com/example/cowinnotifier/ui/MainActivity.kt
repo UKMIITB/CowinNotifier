@@ -8,67 +8,47 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.cowinnotifier.R
 import com.example.cowinnotifier.model.District
 import com.example.cowinnotifier.model.State
-import com.example.cowinnotifier.repository.room.AppDatabase
-import com.example.cowinnotifier.repository.room.Dao
 import com.example.cowinnotifier.viewmodel.ActivityViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: ActivityViewModel
+    private val viewModel: ActivityViewModel by viewModels()
 
-    private lateinit var appDatabase: AppDatabase
-    private lateinit var dao: Dao
     private val stateList = ArrayList<State>()
     private val districtList = ArrayList<District>()
 
-    private val stateListAdapter =
-        ArrayAdapter(this, android.R.layout.simple_spinner_item, stateList)
-    private val districtListAdapter =
-        ArrayAdapter(this, android.R.layout.simple_spinner_item, districtList)
-
-    private val IS_STATE_DATA_LOADED: String = "isStateDataLoaded"
+    private lateinit var stateListAdapter: ArrayAdapter<State>
+    private lateinit var districtListAdapter: ArrayAdapter<District>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.splash_screen)
+        setContentView(R.layout.activity_main)
         init()
     }
 
     private fun init() {
-        viewModel = ViewModelProvider(this).get(ActivityViewModel::class.java)
-        //TODO -> pass dao to viewmodel
-        appDatabase = AppDatabase.getDatabaseInstance(this)!!
-        dao = appDatabase.dao()
-
-        val sharedPref: SharedPreferences = this.getPreferences(Context.MODE_PRIVATE)
-        val isStateDataLoaded = sharedPref.getBoolean(IS_STATE_DATA_LOADED, false)
-
-        if (isStateDataLoaded) {
-            loadActivityMainScreen()
-        } else {
-            viewModel.addStateListInDB()
-
-            with(sharedPref.edit()) {
-                putBoolean(IS_STATE_DATA_LOADED, true)
-                apply()
-            }
-
-            loadActivityMainScreen()
-        }
-    }
-
-    private fun loadActivityMainScreen() {
-        setContentView(R.layout.activity_main)
+        stateListAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, stateList)
+        districtListAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, districtList)
 
         spinner_state?.adapter = stateListAdapter
         spinner_district.adapter = districtListAdapter
 
+        loadStateSpinnerData()
+        setupSpinnerClickListener()
+        setupSearchButtonClickListener()
+        setupSpinnerDataObserver()
+    }
+
+    private fun setupSpinnerClickListener() {
         spinner_state?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -82,50 +62,41 @@ class MainActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
         }
-
-        searchButtonsClickListener()
-        loadStateSpinnerData()
     }
 
-    private fun loadStateSpinnerData() {
-        progressBar.visibility = View.VISIBLE
 
-        viewModel.getStateListFromDB().observe(this, { stateList ->
+    private fun setupSpinnerDataObserver() {
 
+        viewModel.observeStateList().observe(this, { stateList ->
+            progressBar.visibility = View.GONE
             this.stateList.clear()
             this.stateList.addAll(stateList)
+            stateListAdapter.clear()
             stateListAdapter.addAll(stateList)
             stateListAdapter.notifyDataSetChanged()
+        })
 
+        viewModel.observeDistrictList().observe(this, { districtList ->
             progressBar.visibility = View.GONE
+            this.districtList.clear()
+            this.districtList.addAll(districtList)
+            districtListAdapter.clear()
+            districtListAdapter.addAll(districtList)
+            districtListAdapter.notifyDataSetChanged()
         })
     }
 
-    fun loadDistrictSpinnerData(state_id: Long?) {
+    fun loadStateSpinnerData() {
         progressBar.visibility = View.VISIBLE
-
-        viewModel.getDistrictListFromDB(state_id!!).observe(this, { districtList ->
-
-            if (districtList.isEmpty()) {
-                loadDistrictListInBackground(state_id)
-            } else {
-
-                this.districtList.clear()
-                this.districtList.addAll(districtList)
-                districtListAdapter.addAll(districtList)
-                districtListAdapter.notifyDataSetChanged()
-
-                progressBar.visibility = View.GONE
-            }
-        })
+        viewModel.loadStateListData()
     }
 
-    private fun loadDistrictListInBackground(state_id: Long?) {
-        viewModel.addDistrictListInDB(state_id!!)
-        loadDistrictSpinnerData(state_id)
+    fun loadDistrictSpinnerData(state_id: Long) {
+        progressBar.visibility = View.VISIBLE
+        viewModel.loadDistrictListData(state_id)
     }
 
-    private fun searchButtonsClickListener() {
+    private fun setupSearchButtonClickListener() {
         button_pincode_search.setOnClickListener {
             val pinEntered = edit_text_pincode.text.toString()
 

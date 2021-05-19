@@ -5,18 +5,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cowinnotifier.R
 import com.example.cowinnotifier.model.Center
 import com.example.cowinnotifier.ui.adapters.CenterAdapter
-import com.example.cowinnotifier.utils.CoroutineUtil
 import com.example.cowinnotifier.viewmodel.ActivityViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_result.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
+@AndroidEntryPoint
 class ResultActivity : AppCompatActivity() {
 
     private val viewModel: ActivityViewModel by viewModels()
