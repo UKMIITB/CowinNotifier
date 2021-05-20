@@ -1,23 +1,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp">
 
     <TextView
         android:id="@+id/textview_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:text="16 May 2021"
-        android:textSize="16dp" />
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textview_doses"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
+        android:background="@drawable/oval_background"
+        android:gravity="center"
+        android:padding="8dp"
         android:text="100"
-        android:textSize="16dp" />
+        android:textColor="@color/black"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textview_vaccine_name"
@@ -25,8 +35,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
+        android:gravity="center"
         android:text="COVISHIELD"
-        android:textSize="16dp" />
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textview_age_limit"
@@ -34,6 +46,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
+        android:gravity="center"
         android:text="Age 18+"
-        android:textSize="16dp" />
+        android:textColor="@color/min_age_text_color"
+        android:textSize="16sp" />
 </LinearLayout>

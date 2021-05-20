@@ -10,10 +10,10 @@ import com.example.cowinnotifier.model.State
 @Dao
 interface Dao {
 
-    @Query("SELECT * FROM State")
+    @Query("SELECT * FROM State ORDER BY state_name")
     fun getAllStatesList(): List<State>
 
-    @Query("SELECT * FROM District WHERE state_id = :state_id")
+    @Query("SELECT * FROM District WHERE state_id = :state_id ORDER BY district_name")
     fun getAllDistrictList(state_id: Long): List<District>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -1,8 +1,10 @@
 package com.example.cowinnotifier.ui.adapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cowinnotifier.R
 import com.example.cowinnotifier.model.Session
@@ -19,6 +21,17 @@ class SessionAdapter(private val sessionList: List<Session>) :
     override fun onBindViewHolder(holder: SessionViewHolder, position: Int) {
         val eachSession = sessionList[position]
         holder.textViewDate.text = eachSession.date
+
+        val context = holder.textViewDoses.context
+
+        if (eachSession.available_capacity < 10) {
+            holder.textViewDoses.background.setTint(ContextCompat.getColor(context, R.color.capacity_less_than_10))
+        } else if (eachSession.available_capacity < 20) {
+            holder.textViewDoses.background.setTint(ContextCompat.getColor(context, R.color.capacity_less_than_20))
+        } else {
+            holder.textViewDoses.background.setTint(ContextCompat.getColor(context, R.color.capacity_less_than_30))
+        }
+
         holder.textViewDoses.text = eachSession.available_capacity.toString()
         holder.textViewVaccineName.text = eachSession.vaccine
 

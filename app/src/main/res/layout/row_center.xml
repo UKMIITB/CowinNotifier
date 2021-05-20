@@ -1,28 +1,41 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:background="#E1DFDF"
+    android:orientation="vertical"
+    android:paddingTop="8dp">
 
     <TextView
         android:id="@+id/textview_center_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
+        android:gravity="center"
         android:maxLines="1"
-        android:textSize="20dp" />
+        android:textColor="@color/center_name_header_color"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textview_center_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
+        android:gravity="center"
         android:maxLines="1"
-        android:textSize="16dp" />
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_session_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/black" />
 </LinearLayout>

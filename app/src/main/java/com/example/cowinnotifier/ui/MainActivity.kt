@@ -14,6 +14,8 @@ import com.example.cowinnotifier.model.State
 import com.example.cowinnotifier.viewmodel.ActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -65,6 +67,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupSpinnerDataObserver() {
 
         viewModel.observeStateList().observe(this, { stateList ->
+
             progressBar.visibility = View.GONE
             this.stateList.clear()
             this.stateList.addAll(stateList)
@@ -74,6 +77,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         viewModel.observeDistrictList().observe(this, { districtList ->
+
             progressBar.visibility = View.GONE
             this.districtList.clear()
             this.districtList.addAll(districtList)
