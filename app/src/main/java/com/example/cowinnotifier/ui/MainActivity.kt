@@ -1,6 +1,8 @@
 package com.example.cowinnotifier.ui
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -9,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cowinnotifier.R
+import com.example.cowinnotifier.helper.AppConstants
 import com.example.cowinnotifier.model.District
 import com.example.cowinnotifier.model.State
 import com.example.cowinnotifier.viewmodel.ActivityViewModel
@@ -43,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         loadStateSpinnerData()
         setupSpinnerClickListener()
         setupSearchButtonClickListener()
+//        updateViewsBasedOnSharedPrefs()
     }
 
     private fun setupSpinnerClickListener() {
@@ -95,6 +99,36 @@ class MainActivity : AppCompatActivity() {
         viewModel.loadDistrictListData(state_id)
     }
 
+    private fun updateViewsBasedOnSharedPrefs() {
+        if (getSharedPreferenceValue(AppConstants.PINCODE) != "-1") {
+            edit_text_pincode.setText(getSharedPreferenceValue(AppConstants.PINCODE))
+        } else if (getSharedPreferenceValue(AppConstants.STATE_ID) != "-1") {
+//            spinner_state.setSelection(getSharedPreferenceValue(AppConstants.STATE_ID_POSITION)!!.toInt())
+//            spinner_district.setSelection(getSharedPreferenceValue(AppConstants.DISTRICT_ID_POSITION)!!.toInt())
+        }
+    }
+
+    private fun getSharedPreferenceValue(key: String): String? {
+        val sharedPreferences = this.getPreferences(Context.MODE_PRIVATE)
+        return sharedPreferences.getString(key, "-1")
+    }
+
+    private fun updateSharedPreferenceValue(key: String, value: String) {
+        val sharedPreferences = this.getPreferences(Context.MODE_PRIVATE)
+        with(sharedPreferences.edit()) {
+            putString(key, value)
+            apply()
+        }
+    }
+
+    private fun clearSharedPreferenceData() {
+        val sharedPreferences = this.getPreferences(Context.MODE_PRIVATE)
+        with(sharedPreferences.edit()) {
+            clear()
+            apply()
+        }
+    }
+
     private fun setupSearchButtonClickListener() {
         button_pincode_search.setOnClickListener {
             val pinEntered = edit_text_pincode.text.toString()
@@ -102,12 +136,31 @@ class MainActivity : AppCompatActivity() {
             if (pinEntered.length != 6) {
                 Toast.makeText(this, "Please enter a valid pincode", Toast.LENGTH_SHORT).show()
             } else {
+                clearSharedPreferenceData()
+                updateSharedPreferenceValue(AppConstants.PINCODE, pinEntered)
+
                 startActivityFromIntent("pincode", pinEntered)
             }
         }
 
         button_district_search.setOnClickListener {
             val districtId = districtList[spinner_district.selectedItemPosition].district_id
+
+            clearSharedPreferenceData()
+            updateSharedPreferenceValue(AppConstants.DISTRICT_ID, districtId.toString())
+            updateSharedPreferenceValue(
+                AppConstants.DISTRICT_ID_POSITION,
+                spinner_district.selectedItemPosition.toString()
+            )
+            updateSharedPreferenceValue(
+                AppConstants.STATE_ID,
+                districtList[spinner_district.selectedItemPosition].state_id.toString()
+            )
+            updateSharedPreferenceValue(
+                AppConstants.STATE_ID_POSITION,
+                spinner_state.selectedItemPosition.toString()
+            )
+
             startActivityFromIntent("district_id", districtId.toString())
         }
     }

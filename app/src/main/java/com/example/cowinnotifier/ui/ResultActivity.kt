@@ -1,13 +1,20 @@
 package com.example.cowinnotifier.ui
 
+import android.app.job.JobInfo
+import android.app.job.JobScheduler
+import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cowinnotifier.R
+import com.example.cowinnotifier.helper.AppConstants
 import com.example.cowinnotifier.model.Center
+import com.example.cowinnotifier.service.JobSchedulerService
 import com.example.cowinnotifier.ui.adapters.CenterAdapter
 import com.example.cowinnotifier.viewmodel.ActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,5 +75,34 @@ class ResultActivity : AppCompatActivity() {
 
     private fun updateProgressBar(visibility: Int) {
         progressBar.visibility = visibility
+    }
+
+    override fun onBackPressed() {
+        val alertDialog = AlertDialog.Builder(this)
+        alertDialog.setMessage("Do you want to continue search in background and send notification when slots are available")
+        alertDialog.setTitle("Continue searching in background")
+        alertDialog.setPositiveButton("Yes") { _, _ ->
+            startBackgroundSearchAndNotifyService()
+            super.onBackPressed()
+        }
+
+        alertDialog.setNegativeButton("No") { _, _ ->
+            super.onBackPressed()
+        }
+
+        alertDialog.setCancelable(true)
+        alertDialog.create().show()
+    }
+
+    private fun startBackgroundSearchAndNotifyService() {
+        val jobScheduler = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+        val jobInfo = JobInfo.Builder(100, ComponentName(this, JobSchedulerService::class.java))
+
+        val job = jobInfo.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+            .setPeriodic(AppConstants.SERVICE_REPEAT_INTERVAL)
+            .setPersisted(true)
+            .build()
+
+        jobScheduler.schedule(job)
     }
 }
