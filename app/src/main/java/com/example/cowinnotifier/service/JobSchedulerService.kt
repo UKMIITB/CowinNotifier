@@ -2,7 +2,6 @@ package com.example.cowinnotifier.service
 
 import android.app.job.JobParameters
 import android.app.job.JobService
-import android.content.SharedPreferences
 import android.util.Log
 import com.example.cowinnotifier.helper.AppConstants
 import com.example.cowinnotifier.model.Center
@@ -17,7 +16,7 @@ import javax.inject.Inject
 class JobSchedulerService : JobService() {
 
     @Inject
-    private lateinit var apiService: APIService
+    lateinit var apiService: APIService
 
     override fun onStartJob(params: JobParameters?): Boolean {
         Log.d("customtag", "onStartJob: ")
@@ -28,8 +27,10 @@ class JobSchedulerService : JobService() {
         val districtId = sharedPreferences.getString(AppConstants.DISTRICT_ID, "-1")
 
         if (pincode != "-1") {
+            Log.d("customtag", "Searching for pincode: $pincode")
             searchForAvailableSlots(pincode!!, params, AppConstants.PINCODE)
         } else if (districtId != "-1") {
+            Log.d("customtag", "Searching for district: $districtId")
             searchForAvailableSlots(districtId!!, params, AppConstants.DISTRICT_ID)
         } else {
             jobFinished(params, false)
