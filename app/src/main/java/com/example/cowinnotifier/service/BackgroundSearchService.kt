@@ -7,7 +7,7 @@ import androidx.work.WorkerParameters
 import com.example.cowinnotifier.helper.AppConstants
 import com.example.cowinnotifier.model.Center
 import com.example.cowinnotifier.repository.retrofit.APIService
-import com.example.cowinnotifier.utils.SchedulerUtil
+import com.example.cowinnotifier.utils.NotificationUtil
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -22,6 +22,8 @@ class BackgroundSearchService(context: Context, workerParams: WorkerParameters) 
         Log.d("customtag", "ondoWork: ")
         val sharedPreferences =
             androidx.preference.PreferenceManager.getDefaultSharedPreferences(applicationContext)
+
+        NotificationUtil.showNotification(applicationContext)
 
         val pincode = sharedPreferences.getString(AppConstants.PINCODE, "-1")
         val districtId = sharedPreferences.getString(AppConstants.DISTRICT_ID, "-1")

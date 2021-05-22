@@ -20,7 +20,8 @@ class SchedulerUtil {
                 .build()
 
             WorkManager.getInstance(context)
-                .enqueueUniquePeriodicWork("Cowin Search Work", ExistingPeriodicWorkPolicy.KEEP, workRequest)
+//                .enqueueUniquePeriodicWork("Cowin Search Work", ExistingPeriodicWorkPolicy.KEEP, workRequest)
+                .enqueue(workRequest)
         }
     }
 }

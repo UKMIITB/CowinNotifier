@@ -1,7 +1,10 @@
 package com.example.cowinnotifier.ui
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -46,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         loadStateSpinnerData()
         setupSpinnerClickListener()
         setupSearchButtonClickListener()
+        createNotificationChannel()
 //        updateViewsBasedOnSharedPrefs()
     }
 
@@ -170,5 +174,21 @@ class MainActivity : AppCompatActivity() {
             putExtra(key, value)
         }
         startActivity(intent)
+    }
+
+    private fun createNotificationChannel() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = AppConstants.NOTIFICATION_CHANNEL_NAME
+            val descriptionText = AppConstants.NOTIFICATION_CHANNEL_DESC
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val channel =
+                NotificationChannel(AppConstants.NOTIFICATION_CHANNEL_ID, name, importance).apply {
+                    description = descriptionText
+                }
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
     }
 }
