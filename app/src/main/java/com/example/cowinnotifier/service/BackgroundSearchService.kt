@@ -33,8 +33,7 @@ class BackgroundSearchService(context: Context, workerParams: WorkerParameters) 
             Log.d("customtag", "Searching for district: $districtId")
             searchForAvailableSlots(districtId!!, AppConstants.DISTRICT_ID)
         }
-        SchedulerUtil.scheduleNewWork(applicationContext)
-        return Result.retry()
+        return Result.success()
     }
 
     private suspend fun searchForAvailableSlots(queryParam: String, queryName: String) {

@@ -7,6 +7,6 @@ class AppConstants {
         val STATE_ID = "stateId"
         val STATE_ID_POSITION = "stateIdPosition"
         val PINCODE = "pincode"
-        val SERVICE_REPEAT_INTERVAL = 10L  // minutes
+        val SERVICE_REPEAT_INTERVAL = 15L  // minutes
     }
 }
