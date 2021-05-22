@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import com.example.cowinnotifier.R
 import com.example.cowinnotifier.helper.AppConstants
 import com.example.cowinnotifier.model.District
@@ -108,7 +109,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getSharedPreferenceValue(key: String): String? {
-        val sharedPreferences = this.getPreferences(Context.MODE_PRIVATE)
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         return sharedPreferences.getString(key, "-1")
     }
 
