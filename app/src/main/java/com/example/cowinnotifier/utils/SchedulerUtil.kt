@@ -14,14 +14,21 @@ class SchedulerUtil {
             val constraints =
                 Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
 
-            val workRequest = PeriodicWorkRequestBuilder<BackgroundSearchService>(AppConstants.SERVICE_REPEAT_INTERVAL, TimeUnit.MINUTES)
+            val workRequest = PeriodicWorkRequestBuilder<BackgroundSearchService>(
+                AppConstants.SERVICE_REPEAT_INTERVAL,
+                TimeUnit.MINUTES
+            )
                 .setConstraints(constraints)
-                .setBackoffCriteria(BackoffPolicy.LINEAR, AppConstants.SERVICE_REPEAT_INTERVAL, TimeUnit.MINUTES)
+                .setBackoffCriteria(
+                    BackoffPolicy.LINEAR,
+                    AppConstants.SERVICE_REPEAT_INTERVAL,
+                    TimeUnit.MINUTES
+                )
                 .build()
 
             WorkManager.getInstance(context)
-//                .enqueueUniquePeriodicWork("Cowin Search Work", ExistingPeriodicWorkPolicy.KEEP, workRequest)
                 .enqueue(workRequest)
+//                .enqueueUniquePeriodicWork(AppConstants.UNIQUE_WORK_NAME, ExistingPeriodicWorkPolicy.KEEP, workRequest)
         }
     }
 }

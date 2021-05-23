@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.PreferenceManager
+import com.example.cowinnotifier.MyApplication
 import com.example.cowinnotifier.R
 import com.example.cowinnotifier.helper.AppConstants
 import com.example.cowinnotifier.model.District
@@ -113,21 +113,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getSharedPreferenceValue(key: String): String? {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        return sharedPreferences.getString(key, "-1")
+        return MyApplication.sharedPreferences.getString(key, "-1")
     }
 
     private fun updateSharedPreferenceValue(key: String, value: String) {
-        val sharedPreferences = this.getPreferences(Context.MODE_PRIVATE)
-        with(sharedPreferences.edit()) {
+        with(MyApplication.sharedPreferences.edit()) {
             putString(key, value)
             apply()
         }
     }
 
     private fun clearSharedPreferenceData() {
-        val sharedPreferences = this.getPreferences(Context.MODE_PRIVATE)
-        with(sharedPreferences.edit()) {
+        with(MyApplication.sharedPreferences.edit()) {
             clear()
             apply()
         }
@@ -143,7 +140,7 @@ class MainActivity : AppCompatActivity() {
                 clearSharedPreferenceData()
                 updateSharedPreferenceValue(AppConstants.PINCODE, pinEntered)
 
-                startActivityFromIntent("pincode", pinEntered)
+                startActivityFromIntent(AppConstants.PINCODE, pinEntered)
             }
         }
 
@@ -165,7 +162,7 @@ class MainActivity : AppCompatActivity() {
                 spinner_state.selectedItemPosition.toString()
             )
 
-            startActivityFromIntent("district_id", districtId.toString())
+            startActivityFromIntent(AppConstants.DISTRICT_ID, districtId.toString())
         }
     }
 

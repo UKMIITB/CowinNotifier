@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cowinnotifier.R
+import com.example.cowinnotifier.helper.AppConstants
 import com.example.cowinnotifier.model.Center
 import com.example.cowinnotifier.ui.adapters.CenterAdapter
 import com.example.cowinnotifier.utils.SchedulerUtil
@@ -32,9 +33,9 @@ class ResultActivity : AppCompatActivity() {
 
         init()
 
-        if (intent.hasExtra("district_id")) {
+        if (intent.hasExtra(AppConstants.DISTRICT_ID)) {
             startDistrictWiseSearch(intent)
-        } else if (intent.hasExtra("pincode")) {
+        } else if (intent.hasExtra(AppConstants.PINCODE)) {
             startPincodeWiseSearch(intent)
         }
     }
@@ -54,7 +55,7 @@ class ResultActivity : AppCompatActivity() {
 
     private fun startPincodeWiseSearch(intent: Intent) {
         updateProgressBar(View.VISIBLE)
-        val pincode = intent.getStringExtra("pincode")
+        val pincode = intent.getStringExtra(AppConstants.PINCODE)
         val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
 
         viewModel.loadCalendarByPincode(pincode!!, currentDate)
@@ -62,7 +63,7 @@ class ResultActivity : AppCompatActivity() {
 
     private fun startDistrictWiseSearch(intent: Intent) {
         updateProgressBar(View.VISIBLE)
-        val district_id = intent.getStringExtra("district_id")
+        val district_id = intent.getStringExtra(AppConstants.DISTRICT_ID)
         val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
 
         viewModel.loadCalendarByDistrict(district_id!!, currentDate)
@@ -74,8 +75,8 @@ class ResultActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         val alertDialog = AlertDialog.Builder(this)
-        alertDialog.setMessage("Do you want to continue search in background and send notification when slots are available")
-        alertDialog.setTitle("Continue searching in background")
+        alertDialog.setMessage(AppConstants.ALERT_DIALOG_MESSAGE)
+        alertDialog.setTitle(AppConstants.ALERT_DIALOG_TITLE)
         alertDialog.setPositiveButton("Yes") { _, _ ->
             SchedulerUtil.scheduleNewWork(applicationContext)
             super.onBackPressed()
