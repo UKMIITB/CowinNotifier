@@ -50,6 +50,10 @@ class ResultActivity : AppCompatActivity() {
         viewModel.observeCenterList().observe(this, {
             centerAdapter.updateAdapterData(it)
             updateProgressBar(View.GONE)
+            if (it.isNullOrEmpty()) {
+                imageview_no_data.visibility = View.VISIBLE
+                textview_no_data_message.visibility = View.VISIBLE
+            }
         })
     }
 
@@ -74,19 +78,23 @@ class ResultActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val alertDialog = AlertDialog.Builder(this)
-        alertDialog.setMessage(AppConstants.ALERT_DIALOG_MESSAGE)
-        alertDialog.setTitle(AppConstants.ALERT_DIALOG_TITLE)
-        alertDialog.setPositiveButton("Yes") { _, _ ->
-            SchedulerUtil.scheduleNewWork(applicationContext)
+        if (imageview_no_data.visibility == View.VISIBLE) {
             super.onBackPressed()
-        }
+        } else {
+            val alertDialog = AlertDialog.Builder(this)
+            alertDialog.setMessage(AppConstants.ALERT_DIALOG_MESSAGE)
+            alertDialog.setTitle(AppConstants.ALERT_DIALOG_TITLE)
+            alertDialog.setPositiveButton("Yes") { _, _ ->
+                SchedulerUtil.scheduleNewWork(applicationContext)
+                super.onBackPressed()
+            }
 
-        alertDialog.setNegativeButton("No") { _, _ ->
-            super.onBackPressed()
-        }
+            alertDialog.setNegativeButton("No") { _, _ ->
+                super.onBackPressed()
+            }
 
-        alertDialog.setCancelable(true)
-        alertDialog.create().show()
+            alertDialog.setCancelable(true)
+            alertDialog.create().show()
+        }
     }
 }

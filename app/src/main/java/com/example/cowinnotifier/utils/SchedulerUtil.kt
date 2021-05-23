@@ -12,8 +12,10 @@ class SchedulerUtil {
     companion object {
 
         fun scheduleNewWork(context: Context) {
-            val jobScheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-            val jobInfo = JobInfo.Builder(100, ComponentName(context, BackgroundSearchService::class.java))
+            val jobScheduler =
+                context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+            val jobInfo =
+                JobInfo.Builder(100, ComponentName(context, BackgroundSearchService::class.java))
 
             val job = jobInfo.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .setPeriodic(AppConstants.SERVICE_REPEAT_INTERVAL)
@@ -22,27 +24,5 @@ class SchedulerUtil {
 
             jobScheduler.schedule(job)
         }
-
-//        fun scheduleNewWork(context: Context) {
-//
-//            val constraints =
-//                Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
-//
-//            val workRequest = PeriodicWorkRequestBuilder<BackgroundSearchService>(
-//                AppConstants.SERVICE_REPEAT_INTERVAL,
-//                TimeUnit.MINUTES
-//            )
-//                .setConstraints(constraints)
-//                .setBackoffCriteria(
-//                    BackoffPolicy.LINEAR,
-//                    AppConstants.SERVICE_REPEAT_INTERVAL,
-//                    TimeUnit.MINUTES
-//                )
-//                .build()
-//
-//            WorkManager.getInstance(context)
-//                .enqueue(workRequest)
-////                .enqueueUniquePeriodicWork(AppConstants.UNIQUE_WORK_NAME, ExistingPeriodicWorkPolicy.KEEP, workRequest)
-//        }
     }
 }

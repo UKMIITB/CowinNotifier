@@ -50,7 +50,6 @@ class MainActivity : AppCompatActivity() {
         setupSpinnerClickListener()
         setupSearchButtonClickListener()
         createNotificationChannel()
-//        updateViewsBasedOnSharedPrefs()
     }
 
     private fun setupSpinnerClickListener() {
@@ -101,15 +100,6 @@ class MainActivity : AppCompatActivity() {
     private fun loadDistrictSpinnerData(state_id: Long) {
         progressBar.visibility = View.VISIBLE
         viewModel.loadDistrictListData(state_id)
-    }
-
-    private fun updateViewsBasedOnSharedPrefs() {
-        if (getSharedPreferenceValue(AppConstants.PINCODE) != "-1") {
-            edit_text_pincode.setText(getSharedPreferenceValue(AppConstants.PINCODE))
-        } else if (getSharedPreferenceValue(AppConstants.STATE_ID) != "-1") {
-//            spinner_state.setSelection(getSharedPreferenceValue(AppConstants.STATE_ID_POSITION)!!.toInt())
-//            spinner_district.setSelection(getSharedPreferenceValue(AppConstants.DISTRICT_ID_POSITION)!!.toInt())
-        }
     }
 
     private fun getSharedPreferenceValue(key: String): String? {
