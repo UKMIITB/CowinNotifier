@@ -1,11 +1,12 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
     app:cardBackgroundColor="#E0EAE5"
-    app:cardCornerRadius="4dp"
+    app:cardCornerRadius="20dp"
     app:cardElevation="24dp"
     app:contentPadding="8dp">
 
@@ -22,8 +23,10 @@
             android:gravity="center"
             android:text="16 May 2021"
             android:textColor="@color/black"
+            android:textFontWeight="400"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:targetApi="p" />
 
         <TextView
             android:id="@+id/textview_doses"

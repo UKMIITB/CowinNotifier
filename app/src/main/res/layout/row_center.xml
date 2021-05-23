@@ -23,6 +23,7 @@
             android:maxLines="1"
             android:paddingLeft="8dp"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:drawableStartCompat="@drawable/ic_baseline_local_hospital_24" />
 
         <TextView
