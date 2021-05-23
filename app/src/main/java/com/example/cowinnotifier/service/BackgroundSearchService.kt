@@ -53,17 +53,19 @@ class BackgroundSearchService() : JobService() {
                 else
                     apiService.getCalendarByDistrict(queryParam, currentDate).centerList
 
+            var isNotificationCancelAllRequired = true
 
             for (eachCenter in centerList) {
                 val sessionList = eachCenter.sessions
 
                 for (eachSession in sessionList) {
                     if (SessionUtil.isValidSession(eachSession)) {
-                        NotificationUtil.showNotification(
-                            applicationContext,
-                            eachCenter,
-                            eachSession
-                        )
+
+                        if (isNotificationCancelAllRequired) {
+                            NotificationUtil.cancelAllCurrentNotification(applicationContext)
+                            isNotificationCancelAllRequired = false
+                        }
+                        NotificationUtil.showNotification(applicationContext, eachCenter, eachSession)
                     }
                 }
             }

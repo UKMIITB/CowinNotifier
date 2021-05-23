@@ -14,7 +14,6 @@ class AppConstants {
         val NOTIFICATION_CHANNEL_DESC =
             "This channel is used to show notification whenever there is a slot available"
         val NOTIFICATION_CHANNEL_ID = "101"
-        val NOTIFICATION_ID = 101
 
         val UNIQUE_WORK_NAME = "Cowin Search Work"
 

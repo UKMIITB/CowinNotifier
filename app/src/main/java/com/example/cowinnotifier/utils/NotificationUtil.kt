@@ -1,5 +1,6 @@
 package com.example.cowinnotifier.utils
 
+import android.app.NotificationManager
 import android.content.Context
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -21,6 +22,12 @@ class NotificationUtil {
             showNotification(context, title, content)
         }
 
+        fun cancelAllCurrentNotification(context: Context) {
+            with(NotificationManagerCompat.from(context)) {
+                cancelAll()
+            }
+        }
+
         private fun showNotification(context: Context, title: String, content: String) {
             val notification =
                 NotificationCompat.Builder(context, AppConstants.NOTIFICATION_CHANNEL_ID)
@@ -31,7 +38,7 @@ class NotificationUtil {
                     .build()
 
             with(NotificationManagerCompat.from(context)) {
-                notify(AppConstants.NOTIFICATION_ID, notification)
+                notify(content.hashCode(), notification)
             }
         }
     }
