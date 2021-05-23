@@ -1,41 +1,48 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#E1DFDF"
-    android:orientation="vertical"
-    android:paddingTop="8dp">
+    android:layout_marginTop="12dp"
+    android:layout_marginBottom="8dp"
+    android:paddingTop="8dp"
+    app:cardBackgroundColor="#DCE1DC"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="16dp">
 
-    <TextView
-        android:id="@+id/textview_center_name"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:maxLines="1"
-        android:textColor="@color/center_name_header_color"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textview_center_address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:maxLines="1"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/textview_center_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingLeft="8dp"
+            android:textSize="20sp"
+            app:drawableStartCompat="@drawable/ic_baseline_local_hospital_24" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_session_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" />
+        <TextView
+            android:id="@+id/textview_center_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingLeft="8dp"
+            android:textSize="16sp"
+            app:drawableLeftCompat="@drawable/ic_baseline_location_on_24" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/black" />
-</LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_session_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+
+
