@@ -20,5 +20,8 @@ class AppConstants {
         val ALERT_DIALOG_MESSAGE =
             "Do you want to continue search in background and send notification when slots are available"
         val ALERT_DIALOG_TITLE = "Continue searching in background"
+
+        val AGE_LIMIT_FILTER = arrayOf("Any", "Age 18+", "Age 45+")
+        val VACCINE_FILTER = arrayOf("Any", "Covishield", "Covaxin", "Sputnik V")
     }
 }
