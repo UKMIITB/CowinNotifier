@@ -60,17 +60,23 @@ class ResultActivity : AppCompatActivity() {
     private fun startPincodeWiseSearch(intent: Intent) {
         updateProgressBar(View.VISIBLE)
         val pincode = intent.getStringExtra(AppConstants.PINCODE)
+        val ageLimit = intent.getLongExtra(AppConstants.AGE_LIMIT, 0L)
+        var vaccineFilter = intent.getStringExtra(AppConstants.VACCINE)
+        vaccineFilter = vaccineFilter ?: ""
         val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
 
-        viewModel.loadCalendarByPincode(pincode!!, currentDate)
+        viewModel.loadCalendarByPincode(pincode!!, currentDate, ageLimit, vaccineFilter)
     }
 
     private fun startDistrictWiseSearch(intent: Intent) {
         updateProgressBar(View.VISIBLE)
         val district_id = intent.getStringExtra(AppConstants.DISTRICT_ID)
+        val ageLimit = intent.getLongExtra(AppConstants.AGE_LIMIT, 0L)
+        var vaccineFilter = intent.getStringExtra(AppConstants.VACCINE)
+        vaccineFilter = vaccineFilter ?: ""
         val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
 
-        viewModel.loadCalendarByDistrict(district_id!!, currentDate)
+        viewModel.loadCalendarByDistrict(district_id!!, currentDate, ageLimit, vaccineFilter)
     }
 
     private fun updateProgressBar(visibility: Int) {

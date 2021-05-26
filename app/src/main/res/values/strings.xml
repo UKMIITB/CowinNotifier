@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CowinNotifier</string>
-    <string name="no_data_message">No vaccination center available for this area.
-        Please try searching for some nearby area</string>
+    <string name="no_data_message">Sorry we couldn\'t find any vaccination center.
+        Try searching for some other area</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

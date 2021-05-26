@@ -24,11 +24,26 @@ class BackgroundSearchService() : JobService() {
 
         val pincode = MyApplication.sharedPreferences.getString(AppConstants.PINCODE, "-1")
         val districtId = MyApplication.sharedPreferences.getString(AppConstants.DISTRICT_ID, "-1")
+        val ageLimit = MyApplication.sharedPreferences.getLong(AppConstants.AGE_LIMIT, 0)
+        val vaccineFilter = MyApplication.sharedPreferences.getString(AppConstants.VACCINE, "")
+
 
         if (pincode != "-1") {
-            searchForAvailableSlots(pincode!!, AppConstants.PINCODE, params)
+            searchForAvailableSlots(
+                pincode!!,
+                AppConstants.PINCODE,
+                ageLimit,
+                vaccineFilter!!,
+                params
+            )
         } else if (districtId != "-1") {
-            searchForAvailableSlots(districtId!!, AppConstants.DISTRICT_ID, params)
+            searchForAvailableSlots(
+                districtId!!,
+                AppConstants.DISTRICT_ID,
+                ageLimit,
+                vaccineFilter!!,
+                params
+            )
         }
 
         return true
@@ -41,11 +56,14 @@ class BackgroundSearchService() : JobService() {
     private fun searchForAvailableSlots(
         queryParam: String,
         queryName: String,
+        ageLimit: Long,
+        vaccineFilter: String,
         params: JobParameters?
     ) {
         CoroutineUtil.io {
 
             val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
+
 
             val centerList: List<Center> =
                 if (queryName == AppConstants.PINCODE)
@@ -59,13 +77,22 @@ class BackgroundSearchService() : JobService() {
                 val sessionList = eachCenter.sessions
 
                 for (eachSession in sessionList) {
-                    if (SessionUtil.isValidSession(eachSession)) {
+                    if (SessionUtil.isValidSessionForNotificationPush(
+                            eachSession,
+                            ageLimit,
+                            vaccineFilter
+                        )
+                    ) {
 
                         if (isNotificationCancelAllRequired) {
                             NotificationUtil.cancelAllCurrentNotification(applicationContext)
                             isNotificationCancelAllRequired = false
                         }
-                        NotificationUtil.showNotification(applicationContext, eachCenter, eachSession)
+                        NotificationUtil.showNotification(
+                            applicationContext,
+                            eachCenter,
+                            eachSession
+                        )
                     }
                 }
             }

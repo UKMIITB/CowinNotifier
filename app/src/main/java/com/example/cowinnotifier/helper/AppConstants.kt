@@ -3,9 +3,7 @@ package com.example.cowinnotifier.helper
 class AppConstants {
     companion object {
         val DISTRICT_ID = "districtId"
-        val DISTRICT_ID_POSITION = "districtIdPosition"
         val STATE_ID = "stateId"
-        val STATE_ID_POSITION = "stateIdPosition"
         val PINCODE = "pincode"
 
         val SERVICE_REPEAT_INTERVAL = 15L  // minutes
@@ -21,7 +19,12 @@ class AppConstants {
             "Do you want to continue search in background and send notification when slots are available"
         val ALERT_DIALOG_TITLE = "Continue searching in background"
 
-        val AGE_LIMIT_FILTER = arrayOf("Any", "Age 18+", "Age 45+")
-        val VACCINE_FILTER = arrayOf("Any", "Covishield", "Covaxin", "Sputnik V")
+        val AGE_LIMIT_FILTER_ARRAY = arrayOf("None", "Age 18+", "Age 45+")
+        val AGE_LIMIT_FILTER_MAP = mapOf("None" to 0L, "Age 18+" to 18L, "Age 45+" to 45L)
+        val VACCINE_FILTER_ARRAY = arrayOf("None", "Covishield", "Covaxin", "Sputnik V")
+        val VACCINE_FILTER_MAP = mapOf("None" to "", "Covishield" to "COVISHIELD", "Covaxin" to "COVAXIN", "Sputnik V" to "SPUTNIK V")
+
+        val AGE_LIMIT = "ageLimit"
+        val VACCINE = "vaccine"
     }
 }

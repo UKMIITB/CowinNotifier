@@ -2,17 +2,18 @@ package com.example.cowinnotifier.viewmodel
 
 import android.content.Context
 import android.content.Intent
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.cowinnotifier.MyApplication
+import com.example.cowinnotifier.helper.AppConstants
 import com.example.cowinnotifier.model.Center
 import com.example.cowinnotifier.model.District
 import com.example.cowinnotifier.model.State
 import com.example.cowinnotifier.repository.APIRepository
 import com.example.cowinnotifier.ui.ResultActivity
 import com.example.cowinnotifier.utils.CoroutineUtil
+import com.example.cowinnotifier.utils.SessionUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -67,19 +68,31 @@ class ActivityViewModel @Inject constructor(private val apiRepository: APIReposi
         }
     }
 
-    fun loadCalendarByDistrict(district_id: String, date: String) = CoroutineUtil.io {
+    fun loadCalendarByDistrict(
+        district_id: String, date: String, ageLimit: Long,
+        vaccineFilter: String
+    ) = CoroutineUtil.io {
         kotlin.runCatching {
             apiRepository.getCalendarByDistrict(district_id, date)
         }.onSuccess { centerAPIResponse ->
-            centerList.postValue(centerAPIResponse)
+            val filteredCenterList =
+                SessionUtil.filterCenterList(centerAPIResponse, ageLimit, vaccineFilter)
+            centerList.postValue(filteredCenterList)
         }
     }
 
-    fun loadCalendarByPincode(pincode: String, date: String) = CoroutineUtil.io {
+    fun loadCalendarByPincode(
+        pincode: String,
+        date: String,
+        ageLimit: Long,
+        vaccineFilter: String
+    ) = CoroutineUtil.io {
         kotlin.runCatching {
             apiRepository.getCalendarByPincode(pincode, date)
         }.onSuccess { centerAPIResponse ->
-            centerList.postValue(centerAPIResponse)
+            val filteredCenterList =
+                SessionUtil.filterCenterList(centerAPIResponse, ageLimit, vaccineFilter)
+            centerList.postValue(filteredCenterList)
         }
     }
 
@@ -94,6 +107,13 @@ class ActivityViewModel @Inject constructor(private val apiRepository: APIReposi
         }
     }
 
+    fun updateSharedPreferenceValue(key: String, value: Long) {
+        with(MyApplication.sharedPreferences.edit()) {
+            putLong(key, value)
+            apply()
+        }
+    }
+
     fun clearSharedPreferenceData() {
         with(MyApplication.sharedPreferences.edit()) {
             clear()
@@ -101,9 +121,17 @@ class ActivityViewModel @Inject constructor(private val apiRepository: APIReposi
         }
     }
 
-    fun startActivityFromIntent(key: String, value: String, context: Context) {
+    fun startActivityFromIntent(
+        searchTypeKey: String,
+        searchTypeValue: String,
+        context: Context,
+        ageLimit: Long,
+        vaccineFilter: String
+    ) {
         val intent = Intent(context, ResultActivity::class.java).apply {
-            putExtra(key, value)
+            putExtra(searchTypeKey, searchTypeValue)
+            putExtra(AppConstants.AGE_LIMIT, ageLimit)
+            putExtra(AppConstants.VACCINE, vaccineFilter)
         }
         context.startActivity(intent)
     }
