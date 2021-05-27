@@ -122,6 +122,8 @@ class DistrictSearchFragment : Fragment() {
             viewModel.updateSharedPreferenceValue(AppConstants.STATE_ID, districtList[spinner_district.selectedItemPosition].state_id.toString())
             viewModel.updateSharedPreferenceValue(AppConstants.AGE_LIMIT, ageFilter)
             viewModel.updateSharedPreferenceValue(AppConstants.VACCINE, vaccineFilter)
+            viewModel.updateSharedPreferenceValue(AppConstants.DISTRICT_NAME, spinner_district.selectedItem.toString())
+            viewModel.updateSharedPreferenceValue(AppConstants.STATE_NAME, spinner_state.selectedItem.toString())
 
             viewModel.startActivityFromIntent(AppConstants.DISTRICT_ID, districtId.toString(), mContext, ageFilter, vaccineFilter)
         }

@@ -5,6 +5,8 @@ class AppConstants {
         val DISTRICT_ID = "districtId"
         val STATE_ID = "stateId"
         val PINCODE = "pincode"
+        val DISTRICT_NAME = "districtName"
+        val STATE_NAME = "stateName"
 
         val SERVICE_REPEAT_INTERVAL = 15L  // minutes
 
@@ -14,6 +16,7 @@ class AppConstants {
         val NOTIFICATION_CHANNEL_ID = "101"
 
         val UNIQUE_WORK_NAME = "Cowin Search Work"
+        val JOB_SCHEDULER_ID = 100
 
         val ALERT_DIALOG_MESSAGE =
             "Do you want to continue search in background and send notification when slots are available"

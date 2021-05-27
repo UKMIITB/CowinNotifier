@@ -96,8 +96,12 @@ class ActivityViewModel @Inject constructor(private val apiRepository: APIReposi
         }
     }
 
-    fun getSharedPreferenceValue(key: String): String? {
-        return MyApplication.sharedPreferences.getString(key, "-1")
+    fun getStringSharedPreferenceValue(key: String): String? {
+        return MyApplication.sharedPreferences.getString(key, "")
+    }
+
+    fun getLongSharedPreferenceValue(key: String): Long {
+        return MyApplication.sharedPreferences.getLong(key, 0L)
     }
 
     fun updateSharedPreferenceValue(key: String, value: String) {

@@ -13,10 +13,7 @@ import com.example.cowinnotifier.R
 import com.example.cowinnotifier.helper.AppConstants
 import com.example.cowinnotifier.utils.FilterUtil
 import com.example.cowinnotifier.viewmodel.ActivityViewModel
-import kotlinx.android.synthetic.main.fragment_district_search.*
 import kotlinx.android.synthetic.main.fragment_pincode_search.*
-import kotlinx.android.synthetic.main.fragment_pincode_search.spinner_age_filter
-import kotlinx.android.synthetic.main.fragment_pincode_search.spinner_vaccine_filter
 
 
 class PincodeSearchFragment : Fragment() {
