@@ -3,8 +3,11 @@ package com.example.cowinnotifier.ui
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cowinnotifier.R
 import com.example.cowinnotifier.helper.AppConstants
@@ -50,5 +53,32 @@ class MainActivity : AppCompatActivity() {
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.how_to_use -> {
+                howToUseClicked()
+                true
+            }
+            R.id.current_search -> {
+                currentSearchClicked()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun howToUseClicked() {
+        startActivity(Intent(this, HowToUseActivity::class.java))
+    }
+
+    private fun currentSearchClicked() {
+        startActivity(Intent(this, CurrentSearchActivity::class.java))
     }
 }

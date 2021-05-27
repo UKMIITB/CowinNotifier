@@ -21,7 +21,7 @@ class SchedulerUtil {
                 .setPeriodic(AppConstants.SERVICE_REPEAT_INTERVAL)
                 .setPersisted(true)
                 .build()
-
+            jobScheduler.cancelAll()    // Canceling all previously added job if any
             jobScheduler.schedule(job)
         }
     }

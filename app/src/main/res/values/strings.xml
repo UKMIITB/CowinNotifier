@@ -4,4 +4,14 @@
         Try searching for some other area</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="how_to_use">How to use</string>
+    <string name="current_search">Current search</string>
+    <string name="how_to_use_point_1">1. You can search either by <b>Pincode</b> or by <b>District</b></string>
+    <string name="how_to_use_point_2">2. Age &amp; vaccine filter <b>None</b> will show all available results</string>
+    <string name="how_to_use_point_3"> 3. Press back button &amp; select <b>Yes</b> from <b>Search Results</b> page to start background search</string>
+    <string name="how_to_use_point_4">4. On selecting <b>Yes</b>, you can close the app. A notification would be sent when slots are available for current search parameter</string>
+    <string name="how_to_use_point_5">5. For <b>Xiaomi</b>, <b>OPPO</b> &amp; <b>VIVO</b> users, Please click on settings link below and <b>enable autostart</b> permission for background search to work properly</string>
+    <string name="how_to_use_section_header">How to use section</string>
+    <string name="open_app_settings">Open App Settings</string>
+
 </resources>

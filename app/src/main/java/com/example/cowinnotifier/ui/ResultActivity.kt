@@ -41,6 +41,7 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun init() {
+        title = "Search Results"
         val layoutManager = LinearLayoutManager(this)
         centerAdapter = CenterAdapter(centerList)
 
