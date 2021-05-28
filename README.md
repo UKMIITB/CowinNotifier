@@ -5,7 +5,7 @@ Android app to search for covid vaccine slots, turn on background search &amp; g
 
 ![ezgif com-gif-to-mp4-3](https://user-images.githubusercontent.com/36126610/120022598-3e28cf80-c00a-11eb-8c66-b1f4ade7155e.gif)
 
-https://user-images.githubusercontent.com/36126610/120020770-cce81d00-c007-11eb-9477-a284269dc9ed.mp4
+https://user-images.githubusercontent.com/36126610/120024025-3702c100-c00c-11eb-947d-eda8b63bb822.mp4
 
 ### About the App:
 1. You can search either by PINCODE or by DISTRICT
