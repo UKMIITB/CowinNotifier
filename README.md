@@ -22,3 +22,9 @@ https://user-images.githubusercontent.com/36126610/120024025-3702c100-c00c-11eb-
 3. Finally click on install
 
 ![ezgif com-gif-to-mp4-2](https://user-images.githubusercontent.com/36126610/120022245-c6f33b80-c009-11eb-995f-82db6164ec56.gif)
+
+### Features planned for next version:
+1. End background search from notification
+2. Option to enable aggressive search [currently app searches for slots every 15 mins]
+3. Button to start background search in search result screen
+4. Icon for the app
