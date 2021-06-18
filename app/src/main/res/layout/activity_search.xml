@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.SearchActivity">
+
+    <View
+        android:id="@+id/view_header"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@color/primary_blue"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textview_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_condition_num"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/textview_subheading"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/textview_subheading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_sub_heading"
+        android:textColor="@color/sub_heading_text"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/view_header"
+        app:layout_constraintLeft_toLeftOf="@id/textview_heading"
+        app:layout_constraintTop_toTopOf="@id/view_header" />
+
+    <TextView
+        android:id="@+id/textview_vaccine_heading"
+        style="@style/search_parameter_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/vaccine"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/textview_dose_heading"
+        app:layout_constraintTop_toBottomOf="@id/view_header" />
+
+    <TextView
+        android:id="@+id/textview_dose_heading"
+        style="@style/search_parameter_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dose"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintLeft_toRightOf="@id/textview_vaccine_heading"
+        app:layout_constraintRight_toLeftOf="@id/textview_age_heading"
+        app:layout_constraintTop_toTopOf="@id/textview_vaccine_heading" />
+
+    <TextView
+        android:id="@+id/textview_age_heading"
+        style="@style/search_parameter_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/age"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintLeft_toRightOf="@id/textview_dose_heading"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textview_vaccine_heading" />
+
+    <CheckBox
+        android:id="@+id/checkbox_covaxin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="@string/covaxin"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/textview_dose_heading"
+        app:layout_constraintTop_toBottomOf="@id/textview_vaccine_heading" />
+
+    <CheckBox
+        android:id="@+id/checkbox_covishield"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="@string/covishield"
+        app:layout_constraintLeft_toLeftOf="@id/checkbox_covaxin"
+        app:layout_constraintTop_toBottomOf="@id/checkbox_covaxin" />
+
+    <CheckBox
+        android:id="@+id/checkbox_sputnik"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="@string/sputnik"
+        app:layout_constraintLeft_toLeftOf="@id/checkbox_covaxin"
+        app:layout_constraintTop_toBottomOf="@id/checkbox_covishield" />
+
+    <RadioGroup
+        android:id="@+id/radio_group_dose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintLeft_toRightOf="@id/textview_vaccine_heading"
+        app:layout_constraintRight_toLeftOf="@id/textview_age_heading"
+        app:layout_constraintTop_toTopOf="@id/checkbox_covaxin">
+
+        <RadioButton
+            android:id="@+id/radio_button_first_dose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="@string/first_dose" />
+
+        <RadioButton
+            android:id="@+id/radio_button_second_dose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="@string/second_dose" />
+
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radio_group_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/radio_group_dose"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/checkbox_covaxin">
+
+        <RadioButton
+            android:id="@+id/radio_button_18_45_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="@string/age_group_18_45" />
+
+        <RadioButton
+            android:id="@+id/radio_button_45_plus_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="@string/age_group_45_plus" />
+
+    </RadioGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

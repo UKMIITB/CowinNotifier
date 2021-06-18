@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">CowinNotifier</string>
-    <string name="no_data_message">Sorry we couldn\'t find any vaccination center.<br/>
+    <string name="no_data_message">Sorry we couldn\'t find any vaccination center.<br />
         Try searching for some other area</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -13,9 +13,21 @@
     <string name="how_to_use_point_5">5. For <b>Xiaomi</b>, <b>OPPO</b> &amp; <b>VIVO</b> users, Please click on settings link below and <b>enable autostart</b> permission for background search to work properly</string>
     <string name="how_to_use_section_header">How to use section</string>
     <string name="open_app_settings">Open App Settings</string>
-    <string name="no_job_scheduled_message">Sorry no background search scheduled.<br/>
+    <string name="no_job_scheduled_message">Sorry no background search scheduled.<br />
     Search for center to enable background search</string>
     <string name="search_location">Search Location:</string>
     <string name="age_limit">Age Limit:</string>
     <string name="vaccine_filter">Vaccine Filter:</string>
+    <string name="search_condition_num">Search Condition 1</string>
+    <string name="search_sub_heading">Select desired parameters</string>
+    <string name="vaccine">Vaccine</string>
+    <string name="dose">Dose</string>
+    <string name="age">Age</string>
+    <string name="covaxin">Covaxin</string>
+    <string name="covishield">Covishield</string>
+    <string name="sputnik">Sputnik</string>
+    <string name="first_dose">1st</string>
+    <string name="second_dose">2nd</string>
+    <string name="age_group_18_45">18–45</string>
+    <string name="age_group_45_plus">45+</string>
 </resources>

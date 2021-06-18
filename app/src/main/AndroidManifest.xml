@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CowinNotifier">
-        <activity android:name=".ui.CurrentSearchActivity"></activity>
+        <activity android:name=".ui.SearchActivity"></activity>
+        <activity android:name=".ui.CurrentSearchActivity" />
         <activity android:name=".ui.HowToUseActivity" />
         <activity android:name=".ui.ResultActivity" />
         <activity android:name=".ui.MainActivity">
