@@ -30,4 +30,9 @@
     <string name="second_dose">2nd</string>
     <string name="age_group_18_45">18–45</string>
     <string name="age_group_45_plus">45+</string>
+    <string name="location">Location</string>
+    <string name="search_pincode">Within PIN</string>
+    <string name="search_district">Within District</string>
+    <string name="search_gps">Within 10km</string>
+    <string name="notification_message">Receive notification when new slots open</string>
 </resources>

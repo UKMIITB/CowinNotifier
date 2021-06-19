@@ -56,7 +56,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dose"
-        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintLeft_toRightOf="@id/textview_vaccine_heading"
         app:layout_constraintRight_toLeftOf="@id/textview_age_heading"
         app:layout_constraintTop_toTopOf="@id/textview_vaccine_heading" />
@@ -67,13 +66,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/age"
-        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintLeft_toRightOf="@id/textview_dose_heading"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/textview_vaccine_heading" />
 
     <CheckBox
         android:id="@+id/checkbox_covaxin"
+        style="@style/basic_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -87,6 +86,7 @@
 
     <CheckBox
         android:id="@+id/checkbox_covishield"
+        style="@style/basic_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="0dp"
@@ -97,6 +97,7 @@
 
     <CheckBox
         android:id="@+id/checkbox_sputnik"
+        style="@style/basic_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="0dp"
@@ -116,6 +117,7 @@
 
         <RadioButton
             android:id="@+id/radio_button_first_dose"
+            style="@style/basic_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="0dp"
@@ -124,6 +126,7 @@
 
         <RadioButton
             android:id="@+id/radio_button_second_dose"
+            style="@style/basic_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="0dp"
@@ -142,6 +145,7 @@
 
         <RadioButton
             android:id="@+id/radio_button_18_45_age"
+            style="@style/basic_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="0dp"
@@ -150,6 +154,7 @@
 
         <RadioButton
             android:id="@+id/radio_button_45_plus_age"
+            style="@style/basic_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="0dp"
@@ -157,5 +162,80 @@
             android:text="@string/age_group_45_plus" />
 
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/textview_location_heading"
+        style="@style/search_parameter_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/location"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/checkbox_sputnik" />
+
+    <RadioGroup
+        android:id="@+id/radio_group_location_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_location_heading">
+
+        <RadioButton
+            android:id="@+id/radio_button_location_pincode"
+            style="@style/basic_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="@string/search_pincode" />
+
+        <RadioButton
+            android:id="@+id/radio_button_location_district"
+            style="@style/basic_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="@string/search_district" />
+
+        <RadioButton
+            android:id="@+id/radio_button_location_gps"
+            style="@style/basic_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="@string/search_gps" />
+
+    </RadioGroup>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/radio_group_location_type" />
+
+    <TextView
+        android:id="@+id/textview_notification_message"
+        style="@style/basic_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/notification_message"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_container" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

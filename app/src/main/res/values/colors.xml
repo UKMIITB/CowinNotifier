@@ -15,4 +15,5 @@
     <color name="app_settings_button_color">#673AB7</color>
     <color name="primary_blue">#74B9FF</color>
     <color name="sub_heading_text">#E4E4E4</color>
+    <color name="text_color">#707070</color>
 </resources>
