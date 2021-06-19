@@ -279,107 +279,69 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_notification_message" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardview_bottom_search_number"
+    <View
+        android:id="@+id/view_footer"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:orientation="horizontal"
-        app:cardElevation="8dp"
+        android:background="@color/white"
+        android:elevation="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/textview_search_condition_footer"
+        style="@style/basic_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:elevation="16dp"
+        android:text="@string/search_condition"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/view_footer"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/view_footer" />
 
-            <TextView
-                android:id="@+id/textview_search_condition_footer"
-                style="@style/basic_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="28dp"
-                android:text="@string/search_condition"
-                android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textview_one"
+        style="@style/search_footer_condition_tabs"
+        android:layout_marginStart="32dp"
+        android:layout_toEndOf="@id/textview_search_condition_footer"
+        app:layout_constraintBottom_toBottomOf="@id/view_footer"
+        app:layout_constraintLeft_toRightOf="@id/textview_search_condition_footer"
+        app:layout_constraintTop_toTopOf="@id/view_footer" />
 
-            <TextView
-                android:id="@+id/textview_one"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="32dp"
-                android:layout_toEndOf="@id/textview_search_condition_footer"
-                android:background="@drawable/rectangle_border"
-                android:paddingLeft="10dp"
-                android:paddingTop="4dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="4dp"
-                android:text="@string/plus_symbol"
-                android:textSize="18sp" />
+    <TextView
+        android:id="@+id/textview_two"
+        style="@style/search_footer_condition_tabs"
+        android:layout_toEndOf="@id/textview_one"
+        app:layout_constraintBottom_toBottomOf="@id/view_footer"
+        app:layout_constraintLeft_toRightOf="@id/textview_one"
+        app:layout_constraintTop_toTopOf="@id/view_footer" />
 
-            <TextView
-                android:id="@+id/textview_two"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="16dp"
-                android:layout_toEndOf="@id/textview_one"
-                android:background="@drawable/rectangle_border"
-                android:paddingLeft="10dp"
-                android:paddingTop="4dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="4dp"
-                android:text="@string/plus_symbol"
-                android:textSize="18sp" />
+    <TextView
+        android:id="@+id/textview_three"
+        style="@style/search_footer_condition_tabs"
+        android:layout_toEndOf="@id/textview_two"
+        app:layout_constraintBottom_toBottomOf="@id/view_footer"
+        app:layout_constraintLeft_toRightOf="@id/textview_two"
+        app:layout_constraintTop_toTopOf="@id/view_footer" />
 
-            <TextView
-                android:id="@+id/textview_three"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="16dp"
-                android:layout_toEndOf="@id/textview_two"
-                android:background="@drawable/rectangle_border"
-                android:paddingLeft="10dp"
-                android:paddingTop="4dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="4dp"
-                android:text="@string/plus_symbol"
-                android:textSize="18sp" />
+    <TextView
+        android:id="@+id/textview_four"
+        style="@style/search_footer_condition_tabs"
+        android:layout_toEndOf="@id/textview_three"
+        app:layout_constraintBottom_toBottomOf="@id/view_footer"
+        app:layout_constraintLeft_toRightOf="@id/textview_three"
+        app:layout_constraintTop_toTopOf="@id/view_footer" />
 
-            <TextView
-                android:id="@+id/textview_four"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="16dp"
-                android:layout_toEndOf="@id/textview_three"
-                android:background="@drawable/rectangle_border"
-                android:paddingLeft="10dp"
-                android:paddingTop="4dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="4dp"
-                android:text="@string/plus_symbol"
-                android:textSize="18sp" />
+    <TextView
+        android:id="@+id/textview_five"
+        style="@style/search_footer_condition_tabs"
+        android:layout_toEndOf="@id/textview_four"
+        app:layout_constraintBottom_toBottomOf="@id/view_footer"
+        app:layout_constraintLeft_toRightOf="@id/textview_four"
+        app:layout_constraintTop_toTopOf="@id/view_footer" />
 
-            <TextView
-                android:id="@+id/textview_five"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="16dp"
-                android:layout_toEndOf="@id/textview_four"
-                android:background="@drawable/rectangle_border"
-                android:paddingLeft="10dp"
-                android:paddingTop="4dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="4dp"
-                android:text="@string/plus_symbol"
-                android:textSize="18sp" />
-
-        </RelativeLayout>
-
-    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
