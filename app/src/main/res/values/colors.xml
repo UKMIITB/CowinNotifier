@@ -16,4 +16,5 @@
     <color name="primary_blue">#74B9FF</color>
     <color name="sub_heading_text">#E4E4E4</color>
     <color name="text_color">#707070</color>
+    <color name="button_disabled">#D8D5D5</color>
 </resources>

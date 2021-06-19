@@ -19,6 +19,7 @@
     <string name="age_limit">Age Limit:</string>
     <string name="vaccine_filter">Vaccine Filter:</string>
     <string name="search_condition_num">Search Condition 1</string>
+    <string name="search_condition">Search <br />Condition</string>
     <string name="search_sub_heading">Select desired parameters</string>
     <string name="vaccine">Vaccine</string>
     <string name="dose">Dose</string>
@@ -35,4 +36,8 @@
     <string name="search_district">Within District</string>
     <string name="search_gps">Within 10km</string>
     <string name="notification_message">Receive notification when new slots open</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="show_results">Show results</string>
+    <string name="plus_symbol">+</string>
 </resources>

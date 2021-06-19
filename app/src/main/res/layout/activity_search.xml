@@ -223,6 +223,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/radio_group_location_type" />
@@ -235,7 +236,150 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:text="@string/notification_message"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/imageview_notification_button"
         app:layout_constraintTop_toBottomOf="@id/fragment_container" />
+
+    <ImageView
+        android:id="@+id/imageview_notification_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/circular_background"
+        android:padding="4dp"
+        android:src="@drawable/notification_on"
+        app:layout_constraintBottom_toBottomOf="@id/textview_notification_message"
+        app:layout_constraintLeft_toRightOf="@id/textview_notification_message"
+        app:layout_constraintTop_toTopOf="@id/textview_notification_message" />
+
+    <TextView
+        android:id="@+id/textview_notification_status"
+        style="@style/search_parameter_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/on"
+        app:layout_constraintBottom_toBottomOf="@id/textview_notification_message"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintLeft_toRightOf="@id/imageview_notification_button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textview_notification_message" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_show_results"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/button_rounded_corners_disabled"
+        android:paddingLeft="36dp"
+        android:paddingRight="36dp"
+        android:text="@string/show_results"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_notification_message" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_bottom_search_number"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textview_search_condition_footer"
+                style="@style/basic_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="28dp"
+                android:text="@string/search_condition"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textview_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="32dp"
+                android:layout_toEndOf="@id/textview_search_condition_footer"
+                android:background="@drawable/rectangle_border"
+                android:paddingLeft="10dp"
+                android:paddingTop="4dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="4dp"
+                android:text="@string/plus_symbol"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textview_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@id/textview_one"
+                android:background="@drawable/rectangle_border"
+                android:paddingLeft="10dp"
+                android:paddingTop="4dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="4dp"
+                android:text="@string/plus_symbol"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textview_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@id/textview_two"
+                android:background="@drawable/rectangle_border"
+                android:paddingLeft="10dp"
+                android:paddingTop="4dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="4dp"
+                android:text="@string/plus_symbol"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textview_four"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@id/textview_three"
+                android:background="@drawable/rectangle_border"
+                android:paddingLeft="10dp"
+                android:paddingTop="4dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="4dp"
+                android:text="@string/plus_symbol"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textview_five"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@id/textview_four"
+                android:background="@drawable/rectangle_border"
+                android:paddingLeft="10dp"
+                android:paddingTop="4dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="4dp"
+                android:text="@string/plus_symbol"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
