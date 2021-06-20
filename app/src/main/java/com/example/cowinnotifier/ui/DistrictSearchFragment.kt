@@ -10,10 +10,8 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.cowinnotifier.R
-import com.example.cowinnotifier.helper.AppConstants
 import com.example.cowinnotifier.model.District
 import com.example.cowinnotifier.model.State
-import com.example.cowinnotifier.utils.FilterUtil
 import com.example.cowinnotifier.viewmodel.ActivityViewModel
 import kotlinx.android.synthetic.main.fragment_district_search.*
 
@@ -44,20 +42,16 @@ class DistrictSearchFragment : Fragment() {
     }
 
     private fun init() {
-        stateListAdapter = ArrayAdapter(mContext, android.R.layout.simple_spinner_item, stateList)
-        districtListAdapter =
-            ArrayAdapter(mContext, android.R.layout.simple_spinner_item, districtList)
+        stateListAdapter = ArrayAdapter(mContext, R.layout.spinner_item_layout, stateList)
+        districtListAdapter = ArrayAdapter(mContext, R.layout.spinner_item_layout, districtList)
 
         spinner_state.adapter = stateListAdapter
         spinner_district.adapter = districtListAdapter
 
-        spinner_age_filter.adapter = ArrayAdapter(mContext, android.R.layout.simple_spinner_item, AppConstants.AGE_LIMIT_FILTER_ARRAY)
-        spinner_vaccine_filter.adapter = ArrayAdapter(mContext, android.R.layout.simple_spinner_item, AppConstants.VACCINE_FILTER_ARRAY)
-
         setupSpinnerDataObserver()
         loadStateSpinnerData()
         setupSpinnerClickListener()
-        setupSearchButtonClickListener()
+//        setupSearchButtonClickListener()
     }
 
     private fun setupSpinnerDataObserver() {
@@ -109,23 +103,23 @@ class DistrictSearchFragment : Fragment() {
         }
     }
 
-    private fun setupSearchButtonClickListener() {
-
-        button_district_search.setOnClickListener {
-
-            val districtId = districtList[spinner_district.selectedItemPosition].district_id
-            val ageFilter = FilterUtil.getAgeFilterValueFromPosition(spinner_age_filter.selectedItemPosition)
-            val vaccineFilter =FilterUtil.getVaccineFilterValueFromPosition(spinner_vaccine_filter.selectedItemPosition)
-
-            viewModel.clearSharedPreferenceData()
-            viewModel.updateSharedPreferenceValue(AppConstants.DISTRICT_ID, districtId.toString())
-            viewModel.updateSharedPreferenceValue(AppConstants.STATE_ID, districtList[spinner_district.selectedItemPosition].state_id.toString())
-            viewModel.updateSharedPreferenceValue(AppConstants.AGE_LIMIT, ageFilter)
-            viewModel.updateSharedPreferenceValue(AppConstants.VACCINE, vaccineFilter)
-            viewModel.updateSharedPreferenceValue(AppConstants.DISTRICT_NAME, spinner_district.selectedItem.toString())
-            viewModel.updateSharedPreferenceValue(AppConstants.STATE_NAME, spinner_state.selectedItem.toString())
-
-            viewModel.startActivityFromIntent(AppConstants.DISTRICT_ID, districtId.toString(), mContext, ageFilter, vaccineFilter)
-        }
-    }
+//    private fun setupSearchButtonClickListener() {
+//
+//        button_district_search.setOnClickListener {
+//
+//            val districtId = districtList[spinner_district.selectedItemPosition].district_id
+//            val ageFilter = FilterUtil.getAgeFilterValueFromPosition(spinner_age_filter.selectedItemPosition)
+//            val vaccineFilter =FilterUtil.getVaccineFilterValueFromPosition(spinner_vaccine_filter.selectedItemPosition)
+//
+//            viewModel.clearSharedPreferenceData()
+//            viewModel.updateSharedPreferenceValue(AppConstants.DISTRICT_ID, districtId.toString())
+//            viewModel.updateSharedPreferenceValue(AppConstants.STATE_ID, districtList[spinner_district.selectedItemPosition].state_id.toString())
+//            viewModel.updateSharedPreferenceValue(AppConstants.AGE_LIMIT, ageFilter)
+//            viewModel.updateSharedPreferenceValue(AppConstants.VACCINE, vaccineFilter)
+//            viewModel.updateSharedPreferenceValue(AppConstants.DISTRICT_NAME, spinner_district.selectedItem.toString())
+//            viewModel.updateSharedPreferenceValue(AppConstants.STATE_NAME, spinner_state.selectedItem.toString())
+//
+//            viewModel.startActivityFromIntent(AppConstants.DISTRICT_ID, districtId.toString(), mContext, ageFilter, vaccineFilter)
+//        }
+//    }
 }

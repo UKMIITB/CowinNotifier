@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
 import com.example.cowinnotifier.R
 import com.example.cowinnotifier.helper.AppConstants
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,20 +34,23 @@ class MainActivity : AppCompatActivity() {
         radio_group_location_type.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.radio_button_location_pincode -> {
-                    showPincodeFragment()
+//                    showPincodeFragment()
                 }
                 R.id.radio_button_location_district -> {
                     showDistrictFragment()
                 }
                 R.id.radio_button_location_gps -> {
-                    showGpsFragment()
+//                    showGpsFragment()
                 }
             }
         }
     }
 
     private fun showDistrictFragment() {
-
+        supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            replace(R.id.fragment_container, DistrictSearchFragment())
+        }
     }
 
     private fun createNotificationChannel() {

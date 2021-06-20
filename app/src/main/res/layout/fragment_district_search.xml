@@ -1,31 +1,33 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/textview_state_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="20dp"
         android:text="Select State"
         android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/spinner_state"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/textview_district_header"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/spinner_state"
-        android:layout_width="120dp"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:background="@drawable/spinner_background"
-        android:popupBackground="@color/primary_blue"
         android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/spinner_district"
-        app:layout_constraintTop_toBottomOf="@id/textview_state_header" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textview_district_header"
@@ -39,7 +41,7 @@
 
     <Spinner
         android:id="@+id/spinner_district"
-        android:layout_width="120dp"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:background="@drawable/spinner_background"
         android:spinnerMode="dropdown"
