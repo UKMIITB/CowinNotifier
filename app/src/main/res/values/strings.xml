@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CowinNotifier</string>
+    <string name="app_name">Cowin Notifier</string>
     <string name="no_data_message">Sorry we couldn\'t find any vaccination center.<br />
         Try searching for some other area</string>
     <!-- TODO: Remove or change this placeholder text -->

@@ -8,18 +8,15 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cowinnotifier.R
 import com.example.cowinnotifier.helper.AppConstants
-import com.example.cowinnotifier.ui.adapters.ViewPagerAdapter
-import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var viewPagerAdapter: ViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,14 +26,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        viewPagerAdapter = ViewPagerAdapter(this)
-        viewpager.adapter = viewPagerAdapter
-        TabLayoutMediator(tab_layout, viewpager) { tab, position ->
-            when (position) {
-                0 -> tab.text = "Search by Pin"
-                1 -> tab.text = "Search by District"
+        setLocationRadioGroupClickListener()
+    }
+
+    private fun setLocationRadioGroupClickListener() {
+        radio_group_location_type.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.radio_button_location_pincode -> {
+                    showPincodeFragment()
+                }
+                R.id.radio_button_location_district -> {
+                    showDistrictFragment()
+                }
+                R.id.radio_button_location_gps -> {
+                    showGpsFragment()
+                }
             }
-        }.attach()
+        }
+    }
+
+    private fun showDistrictFragment() {
+
     }
 
     private fun createNotificationChannel() {

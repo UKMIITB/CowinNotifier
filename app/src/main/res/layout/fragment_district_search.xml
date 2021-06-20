@@ -8,100 +8,44 @@
         android:id="@+id/textview_state_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="28dp"
         android:text="Select State"
         android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/textview_district_header"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/spinner_state"
-        android:layout_width="match_parent"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/spinner_background"
+        android:popupBackground="@color/primary_blue"
         android:spinnerMode="dropdown"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/spinner_district"
         app:layout_constraintTop_toBottomOf="@id/textview_state_header" />
 
     <TextView
         android:id="@+id/textview_district_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="24dp"
         android:text="Select District"
         android:textSize="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinner_state" />
+        app:layout_constraintLeft_toRightOf="@id/textview_state_header"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textview_state_header" />
 
     <Spinner
         android:id="@+id/spinner_district"
-        android:layout_width="match_parent"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="16dp"
+        android:background="@drawable/spinner_background"
         android:spinnerMode="dropdown"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_district_header" />
-
-    <TextView
-        android:id="@+id/textview_age_limit_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="24dp"
-        android:text="Age Filter"
-        android:textSize="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinner_district" />
-
-    <Spinner
-        android:id="@+id/spinner_age_filter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="16dp"
-        android:spinnerMode="dropdown"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_age_limit_header" />
-
-    <TextView
-        android:id="@+id/textview_vaccine_filter_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="24dp"
-        android:text="Vaccine Filter"
-        android:textSize="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinner_age_filter" />
-
-    <Spinner
-        android:id="@+id/spinner_vaccine_filter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="16dp"
-        android:spinnerMode="dropdown"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_vaccine_filter_header" />
-
-    <Button
-        android:id="@+id/button_district_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="SEARCH"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/spinner_state"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinner_vaccine_filter" />
+        app:layout_constraintTop_toTopOf="@id/spinner_state" />
 
     <ProgressBar
         android:id="@+id/progressBar"
