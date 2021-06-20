@@ -40,4 +40,6 @@
     <string name="off">Off</string>
     <string name="show_results">Show results</string>
     <string name="plus_symbol">+</string>
+    <string name="select_state">Select State</string>
+    <string name="select_district">Select District</string>
 </resources>

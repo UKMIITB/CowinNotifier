@@ -181,8 +181,9 @@
         android:id="@+id/radio_group_location_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:checkedButton="@id/radio_button_location_pincode"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -192,7 +193,7 @@
         <RadioButton
             android:id="@+id/radio_button_location_pincode"
             style="@style/basic_text"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:minWidth="0dp"
@@ -202,7 +203,7 @@
         <RadioButton
             android:id="@+id/radio_button_location_district"
             style="@style/basic_text"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:minWidth="0dp"
@@ -212,7 +213,7 @@
         <RadioButton
             android:id="@+id/radio_button_location_gps"
             style="@style/basic_text"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:minWidth="0dp"
