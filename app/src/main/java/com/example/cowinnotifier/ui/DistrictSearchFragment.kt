@@ -51,7 +51,6 @@ class DistrictSearchFragment : Fragment() {
         setupSpinnerDataObserver()
         loadStateSpinnerData()
         setupSpinnerClickListener()
-//        setupSearchButtonClickListener()
     }
 
     private fun setupSpinnerDataObserver() {

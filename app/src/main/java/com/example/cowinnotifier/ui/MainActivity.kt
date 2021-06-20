@@ -19,6 +19,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    private val PINCODE_FRAGMENT = 0
+    private val DISTRICT_FRAGMENT = 1
+    private val GPS_FRAGMENT = 2
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -27,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
+        showFragment(PINCODE_FRAGMENT)
         setLocationRadioGroupClickListener()
     }
 
@@ -34,22 +39,26 @@ class MainActivity : AppCompatActivity() {
         radio_group_location_type.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.radio_button_location_pincode -> {
-//                    showPincodeFragment()
+                    showFragment(PINCODE_FRAGMENT)
                 }
                 R.id.radio_button_location_district -> {
-                    showDistrictFragment()
+                    showFragment(DISTRICT_FRAGMENT)
                 }
                 R.id.radio_button_location_gps -> {
-//                    showGpsFragment()
+                    showFragment(GPS_FRAGMENT)
                 }
             }
         }
     }
 
-    private fun showDistrictFragment() {
+    private fun showFragment(code: Int) {
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            replace(R.id.fragment_container, DistrictSearchFragment())
+            when (code) {
+                PINCODE_FRAGMENT -> replace(R.id.fragment_container, PincodeSearchFragment())
+                DISTRICT_FRAGMENT -> replace(R.id.fragment_container, DistrictSearchFragment())
+                GPS_FRAGMENT -> print("GPS Fragment opening")//todo start gps fragment
+            }
         }
     }
 
