@@ -23,9 +23,12 @@ class AppConstants {
         val ALERT_DIALOG_TITLE = "Continue searching in background"
 
         val AGE_LIMIT_FILTER_ARRAY = arrayOf("None", "Age 18+", "Age 45+")
-        val AGE_LIMIT_FILTER_MAP = mapOf("None" to 0L, "Age 18+" to 18L, "Age 45+" to 45L)
+        val AGE_LIMIT_FILTER_MAP = mapOf("18-45" to 18L, "45+" to 45L)
+
         val VACCINE_FILTER_ARRAY = arrayOf("None", "Covishield", "Covaxin", "Sputnik V")
         val VACCINE_FILTER_MAP = mapOf("None" to "", "Covishield" to "COVISHIELD", "Covaxin" to "COVAXIN", "Sputnik" to "SPUTNIK V")
+
+        val DOSE_FILTER_MAP = mapOf("1st" to "available_capacity_dose1", "2nd" to "available_capacity_dose2")
 
         val AGE_LIMIT = "ageLimit"
         val VACCINE = "vaccine"

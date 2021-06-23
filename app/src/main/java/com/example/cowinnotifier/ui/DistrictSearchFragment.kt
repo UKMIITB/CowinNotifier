@@ -102,6 +102,10 @@ class DistrictSearchFragment : Fragment() {
         }
     }
 
+    fun getSelectedDistrictId(): String {
+        return districtList[spinner_district.selectedItemPosition].district_id.toString()
+    }
+
 //    private fun setupSearchButtonClickListener() {
 //
 //        button_district_search.setOnClickListener {

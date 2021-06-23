@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.cowinnotifier.R
 import com.example.cowinnotifier.viewmodel.ActivityViewModel
+import kotlinx.android.synthetic.main.fragment_pincode_search.*
 
 
 class PincodeSearchFragment : Fragment() {
@@ -26,6 +27,10 @@ class PincodeSearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mContext = view.context
+    }
+
+    fun getPincode(): String {
+        return edit_text_pincode.text.toString()
     }
 
 //    private fun init() {

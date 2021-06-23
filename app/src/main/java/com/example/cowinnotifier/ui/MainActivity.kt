@@ -10,7 +10,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
-import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.commit
@@ -33,6 +32,8 @@ class MainActivity : AppCompatActivity() {
 
     private val vaccineSelected = mutableListOf<String>()
     private var currentActiveFragment = PINCODE_FRAGMENT
+    private var doseSelected = AppConstants.DOSE_FILTER_MAP["1st"]
+    private var minAgeSelected: Long = 18
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,12 +44,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun init() {
         showFragment(PINCODE_FRAGMENT)
-        setLocationRadioGroupClickListener()
+        locationRadioGroupClickListener()
+        doseRadioGroupClickListener()
+        ageRadioGroupClickListener()
         showResultButtonClickListener()
         notificationButtonClickListener()
     }
 
-    private fun setLocationRadioGroupClickListener() {
+    private fun locationRadioGroupClickListener() {
         radio_group_location_type.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.radio_button_location_pincode -> {
@@ -63,9 +66,33 @@ class MainActivity : AppCompatActivity() {
                     showFragment(GPS_FRAGMENT)
                     currentActiveFragment = GPS_FRAGMENT
                 }
-                else -> {
-                    showFragment(PINCODE_FRAGMENT)
-                    currentActiveFragment = PINCODE_FRAGMENT
+            }
+        }
+    }
+
+    private fun doseRadioGroupClickListener() {
+        radio_group_dose.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.radio_button_first_dose -> {
+                    doseSelected =
+                        AppConstants.DOSE_FILTER_MAP[radio_button_first_dose.text.toString()]
+                }
+                R.id.radio_button_second_dose -> {
+                    doseSelected =
+                        AppConstants.DOSE_FILTER_MAP[radio_button_second_dose.text.toString()]
+                }
+            }
+        }
+    }
+
+    private fun ageRadioGroupClickListener() {
+        radio_group_age.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.radio_button_18_45_age -> {
+                    minAgeSelected = 18
+                }
+                R.id.radio_button_45_plus_age -> {
+                    minAgeSelected = 45
                 }
             }
         }
@@ -117,7 +144,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun showResultButtonClickListener() {
         button_show_results.setOnClickListener {
+            when (currentActiveFragment) {
+                PINCODE_FRAGMENT -> {
 
+                }
+                DISTRICT_FRAGMENT -> {
+
+                }
+                GPS_FRAGMENT -> {
+
+                }
+            }
         }
     }
 
