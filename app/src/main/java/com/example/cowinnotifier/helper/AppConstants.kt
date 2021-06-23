@@ -25,7 +25,7 @@ class AppConstants {
         val AGE_LIMIT_FILTER_ARRAY = arrayOf("None", "Age 18+", "Age 45+")
         val AGE_LIMIT_FILTER_MAP = mapOf("None" to 0L, "Age 18+" to 18L, "Age 45+" to 45L)
         val VACCINE_FILTER_ARRAY = arrayOf("None", "Covishield", "Covaxin", "Sputnik V")
-        val VACCINE_FILTER_MAP = mapOf("None" to "", "Covishield" to "COVISHIELD", "Covaxin" to "COVAXIN", "Sputnik V" to "SPUTNIK V")
+        val VACCINE_FILTER_MAP = mapOf("None" to "", "Covishield" to "COVISHIELD", "Covaxin" to "COVAXIN", "Sputnik" to "SPUTNIK V")
 
         val AGE_LIMIT = "ageLimit"
         val VACCINE = "vaccine"

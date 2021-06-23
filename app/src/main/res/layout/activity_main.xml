@@ -73,6 +73,7 @@
     <CheckBox
         android:id="@+id/checkbox_covaxin"
         style="@style/basic_text"
+        android:onClick="onVaccineCheckboxClicked"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -86,6 +87,7 @@
 
     <CheckBox
         android:id="@+id/checkbox_covishield"
+        android:onClick="onVaccineCheckboxClicked"
         style="@style/basic_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -97,6 +99,7 @@
 
     <CheckBox
         android:id="@+id/checkbox_sputnik"
+        android:onClick="onVaccineCheckboxClicked"
         style="@style/basic_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -264,7 +267,7 @@
         android:layout_height="wrap_content"
         android:text="@string/on"
         app:layout_constraintBottom_toBottomOf="@id/textview_notification_message"
-        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintLeft_toRightOf="@id/imageview_notification_button"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/textview_notification_message" />
