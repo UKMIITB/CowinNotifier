@@ -28,6 +28,9 @@ class MainActivity : AppCompatActivity() {
     private val NOTIFICATION_ON = "On"
     private val NOTIFICATION_OFF = "Off"
 
+    private val pincodeSearchFragment = PincodeSearchFragment()
+    private val districtSearchFragment = DistrictSearchFragment()
+
     private val vaccineSelected = mutableListOf<String>()
     private var currentActiveFragment = PINCODE_FRAGMENT
 
@@ -93,8 +96,10 @@ class MainActivity : AppCompatActivity() {
             vaccineSelected.remove(AppConstants.VACCINE_FILTER_MAP[vaccineName]!!)
         }
         if (vaccineSelected.size == 0) {
+            button_show_results.isEnabled = false
             button_show_results.background = ResourcesCompat.getDrawable(resources, R.drawable.button_rounded_corners_disabled, null)
         } else {
+            button_show_results.isEnabled = true
             button_show_results.background = ResourcesCompat.getDrawable(resources, R.drawable.button_rounded_corners_enabled, null)
         }
     }
@@ -103,8 +108,8 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.commit {
             setReorderingAllowed(true)
             when (code) {
-                PINCODE_FRAGMENT -> replace(R.id.fragment_container, PincodeSearchFragment())
-                DISTRICT_FRAGMENT -> replace(R.id.fragment_container, DistrictSearchFragment())
+                PINCODE_FRAGMENT -> replace(R.id.fragment_container, pincodeSearchFragment)
+                DISTRICT_FRAGMENT -> replace(R.id.fragment_container, districtSearchFragment)
                 GPS_FRAGMENT -> print("GPS Fragment opening")//todo start gps fragment
             }
         }
