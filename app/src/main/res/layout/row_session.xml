@@ -1,68 +1,94 @@
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:id="@+id/parent_layout"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp"
-    app:cardBackgroundColor="#E0EAE5"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="24dp"
-    app:contentPadding="8dp">
+    android:paddingLeft="24dp"
+    android:paddingTop="12dp"
+    android:paddingRight="24dp"
+    android:paddingBottom="12dp">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:textColor="@color/text_color"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/tvMonth"
+        app:layout_constraintLeft_toLeftOf="@id/tvMonth"
+        app:layout_constraintRight_toRightOf="@id/tvMonth"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread"
+        tools:text="26" />
 
-        <TextView
-            android:id="@+id/textview_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="16 May 2021"
-            android:textColor="@color/black"
-            android:textFontWeight="400"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:targetApi="p" />
+    <TextView
+        android:id="@+id/tvMonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDate"
+        tools:text="MAR" />
 
-        <TextView
-            android:id="@+id/textview_doses"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/oval_background"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="100"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+    <TextView
+        android:id="@+id/tvVaccine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/tvDose"
+        app:layout_constraintLeft_toRightOf="@id/tvDate"
+        app:layout_constraintRight_toLeftOf="@id/tvSlots"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Covishield" />
 
-        <TextView
-            android:id="@+id/textview_vaccine_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="COVISHIELD"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+    <TextView
+        android:id="@+id/tvDose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/tvVaccine"
+        app:layout_constraintTop_toBottomOf="@id/tvVaccine"
+        tools:text="1st" />
 
-        <TextView
-            android:id="@+id/textview_age_limit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="Age 18+"
-            android:textColor="@color/min_age_text_color"
-            android:textSize="16sp" />
+    <TextView
+        android:id="@+id/tvAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="@id/tvVaccine"
+        app:layout_constraintTop_toBottomOf="@id/tvVaccine"
+        tools:text="18-45" />
 
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/tvSlots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/tvSlotsVacant"
+        app:layout_constraintLeft_toLeftOf="@id/tvSlotsVacant"
+        app:layout_constraintRight_toRightOf="@id/tvSlotsVacant"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="25" />
+
+    <TextView
+        android:id="@+id/tvSlotsVacant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/slots_vacant"
+        android:textColor="@color/text_color"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSlots" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 

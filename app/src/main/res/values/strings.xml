@@ -42,4 +42,5 @@
     <string name="plus_symbol">+</string>
     <string name="select_state">Select State</string>
     <string name="select_district">Select District</string>
+    <string name="slots_vacant">slots vacant</string>
 </resources>
