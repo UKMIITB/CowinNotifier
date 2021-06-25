@@ -130,7 +130,8 @@ class ActivityViewModel @Inject constructor(private val apiRepository: APIReposi
         searchTypeValue: String,
         context: Context,
         ageLimit: Long,
-        vaccineFilter: String
+        doseSelected: String,
+        vaccineFilter: ArrayList<String>
     ) {
         val intent = Intent(context, ResultActivity::class.java).apply {
             putExtra(searchTypeKey, searchTypeValue)

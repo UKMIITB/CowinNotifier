@@ -105,24 +105,4 @@ class DistrictSearchFragment : Fragment() {
     fun getSelectedDistrictId(): String {
         return districtList[spinner_district.selectedItemPosition].district_id.toString()
     }
-
-//    private fun setupSearchButtonClickListener() {
-//
-//        button_district_search.setOnClickListener {
-//
-//            val districtId = districtList[spinner_district.selectedItemPosition].district_id
-//            val ageFilter = FilterUtil.getAgeFilterValueFromPosition(spinner_age_filter.selectedItemPosition)
-//            val vaccineFilter =FilterUtil.getVaccineFilterValueFromPosition(spinner_vaccine_filter.selectedItemPosition)
-//
-//            viewModel.clearSharedPreferenceData()
-//            viewModel.updateSharedPreferenceValue(AppConstants.DISTRICT_ID, districtId.toString())
-//            viewModel.updateSharedPreferenceValue(AppConstants.STATE_ID, districtList[spinner_district.selectedItemPosition].state_id.toString())
-//            viewModel.updateSharedPreferenceValue(AppConstants.AGE_LIMIT, ageFilter)
-//            viewModel.updateSharedPreferenceValue(AppConstants.VACCINE, vaccineFilter)
-//            viewModel.updateSharedPreferenceValue(AppConstants.DISTRICT_NAME, spinner_district.selectedItem.toString())
-//            viewModel.updateSharedPreferenceValue(AppConstants.STATE_NAME, spinner_state.selectedItem.toString())
-//
-//            viewModel.startActivityFromIntent(AppConstants.DISTRICT_ID, districtId.toString(), mContext, ageFilter, vaccineFilter)
-//        }
-//    }
 }

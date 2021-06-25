@@ -32,5 +32,8 @@ class AppConstants {
 
         val AGE_LIMIT = "ageLimit"
         val VACCINE = "vaccine"
+
+        val SEARCH_BY_PINCODE = "pincode"
+        val SEARCH_BY_DISTRICT = "district"
     }
 }

@@ -10,11 +10,14 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.commit
 import com.example.cowinnotifier.R
 import com.example.cowinnotifier.helper.AppConstants
+import com.example.cowinnotifier.viewmodel.ActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -34,6 +37,8 @@ class MainActivity : AppCompatActivity() {
     private var currentActiveFragment = PINCODE_FRAGMENT
     private var doseSelected = AppConstants.DOSE_FILTER_MAP["1st"]
     private var minAgeSelected: Long = 18
+
+    private val viewmodel : ActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,18 +106,7 @@ class MainActivity : AppCompatActivity() {
     fun onVaccineCheckboxClicked(view: View) { // method call set as onClick parameter in xml
         if (view is CheckBox) {
             val checked = view.isChecked
-
-            when (view.id) {
-                R.id.checkbox_covaxin -> {
-                    updateVaccineSelectedList(checked, view.text.toString())
-                }
-                R.id.checkbox_covishield -> {
-                    updateVaccineSelectedList(checked, view.text.toString())
-                }
-                R.id.checkbox_sputnik -> {
-                    updateVaccineSelectedList(checked, view.text.toString())
-                }
-            }
+            updateVaccineSelectedList(checked, view.text.toString())
         }
     }
 
@@ -146,16 +140,42 @@ class MainActivity : AppCompatActivity() {
         button_show_results.setOnClickListener {
             when (currentActiveFragment) {
                 PINCODE_FRAGMENT -> {
-
+                    searchByPincode()
                 }
                 DISTRICT_FRAGMENT -> {
-
+                    searchByDistrict()
                 }
                 GPS_FRAGMENT -> {
 
                 }
             }
         }
+    }
+
+    private fun searchByPincode() {
+        val pincode = pincodeSearchFragment.getPincode().trim()
+        if (pincode.length != 6) {
+            Toast.makeText(this, "Please enter a valid Pincode", Toast.LENGTH_SHORT).show()
+            return
+        }
+        startSearch(AppConstants.SEARCH_BY_PINCODE, pincode)
+    }
+
+    private fun searchByDistrict() {
+        val districtId = districtSearchFragment.getSelectedDistrictId()
+        startSearch(AppConstants.SEARCH_BY_DISTRICT, districtId)
+    }
+
+    private fun startSearch(key: String, value: String) {
+        viewmodel.startActivityFromIntent(key, value, this, minAgeSelected, doseSelected!!, getVaccineSelectedList())
+    }
+
+    private fun getVaccineSelectedList(): ArrayList<String> {
+        val vaccineList = arrayListOf<String>()
+        for (vaccine in vaccineSelected) {
+            vaccineList.add(vaccine)
+        }
+        return vaccineList
     }
 
     private fun notificationButtonClickListener() {
