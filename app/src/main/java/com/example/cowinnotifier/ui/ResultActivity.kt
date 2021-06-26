@@ -26,6 +26,11 @@ class ResultActivity : AppCompatActivity() {
     private val centerList = ArrayList<Center>()
     private lateinit var centerAdapter: CenterAdapter
 
+    private var ageLimit: Long = 0L
+    private lateinit var vaccineList: ArrayList<String>
+    private lateinit var dose: String
+    private lateinit var currentDate: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
@@ -41,6 +46,13 @@ class ResultActivity : AppCompatActivity() {
 
     private fun init() {
         title = "Search Results"
+
+        ageLimit = intent.getLongExtra(AppConstants.AGE_LIMIT, 0L)
+        vaccineList =
+            intent.getStringArrayListExtra(AppConstants.VACCINE_LIST) as ArrayList<String>
+        dose = intent.getStringExtra(AppConstants.DOSE)!!
+        currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
+
         val layoutManager = LinearLayoutManager(this)
         centerAdapter = CenterAdapter(centerList)
 
@@ -60,25 +72,13 @@ class ResultActivity : AppCompatActivity() {
     private fun startPincodeWiseSearch() {
         updateProgressBar(View.VISIBLE)
         val pincode = intent.getStringExtra(AppConstants.SEARCH_BY_PINCODE)
-        val ageLimit = intent.getLongExtra(AppConstants.AGE_LIMIT, 0L)
-        val vaccineList =
-            intent.getStringArrayListExtra(AppConstants.VACCINE_LIST) as ArrayList<String>
-        val dose = intent.getStringExtra(AppConstants.DOSE)
-        val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
-
-        viewModel.loadCalendarByPincode(pincode!!, ageLimit, vaccineList, dose!!, currentDate)
+        viewModel.loadCalendarByPincode(pincode!!, ageLimit, vaccineList, dose, currentDate)
     }
 
     private fun startDistrictWiseSearch() {
         updateProgressBar(View.VISIBLE)
         val district_id = intent.getStringExtra(AppConstants.SEARCH_BY_DISTRICT)
-        val ageLimit = intent.getLongExtra(AppConstants.AGE_LIMIT, 0L)
-        val vaccineList =
-            intent.getStringArrayListExtra(AppConstants.VACCINE_LIST) as ArrayList<String>
-        val dose = intent.getStringExtra(AppConstants.DOSE)
-        val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
-
-        viewModel.loadCalendarByDistrict(district_id!!, ageLimit, vaccineList, dose!!, currentDate)
+        viewModel.loadCalendarByDistrict(district_id!!, ageLimit, vaccineList, dose, currentDate)
     }
 
     private fun updateProgressBar(visibility: Int) {
