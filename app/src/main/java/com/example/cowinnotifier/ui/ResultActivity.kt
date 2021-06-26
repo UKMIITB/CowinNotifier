@@ -45,8 +45,6 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        title = "Search Results"
-
         ageLimit = intent.getLongExtra(AppConstants.AGE_LIMIT, 0L)
         vaccineList =
             intent.getStringArrayListExtra(AppConstants.VACCINE_LIST) as ArrayList<String>
