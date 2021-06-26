@@ -30,7 +30,7 @@ class NotificationUtil {
         private fun showNotification(context: Context, title: String, content: String) {
             val notification =
                 NotificationCompat.Builder(context, AppConstants.NOTIFICATION_CHANNEL_ID)
-                    .setSmallIcon(R.drawable.cowin_logo)
+                    .setSmallIcon(R.drawable.ic_launcher_background)
                     .setContentTitle(title)
                     .setStyle(NotificationCompat.BigTextStyle().bigText(content))
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
