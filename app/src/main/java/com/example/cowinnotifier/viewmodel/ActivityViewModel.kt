@@ -2,6 +2,7 @@ package com.example.cowinnotifier.viewmodel
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -137,11 +138,14 @@ class ActivityViewModel @Inject constructor(private val apiRepository: APIReposi
         doseSelected: String,
         vaccineList: ArrayList<String>
     ) {
+        val bundle = Bundle()
+        bundle.putString(searchTypeKey, searchTypeValue)
+        bundle.putLong(AppConstants.AGE_LIMIT, ageLimit)
+        bundle.putString(AppConstants.DOSE, doseSelected)
+        bundle.putStringArrayList(AppConstants.VACCINE_LIST, vaccineList)
+
         val intent = Intent(context, ResultActivity::class.java).apply {
-            putExtra(searchTypeKey, searchTypeValue)
-            putExtra(AppConstants.AGE_LIMIT, ageLimit)
-            putExtra(AppConstants.DOSE, doseSelected)
-            putExtra(AppConstants.VACCINE_LIST, vaccineList)
+            putExtra(AppConstants.SEARCH_DATA, bundle)
         }
         context.startActivity(intent)
     }

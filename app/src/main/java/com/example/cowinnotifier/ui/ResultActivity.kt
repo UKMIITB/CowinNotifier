@@ -31,24 +31,26 @@ class ResultActivity : AppCompatActivity() {
     private lateinit var dose: String
     private lateinit var currentDate: String
 
+    private lateinit var bundle: Bundle
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
-
+        bundle = intent.getBundleExtra(AppConstants.SEARCH_DATA)!!
         init()
 
-        if (intent.hasExtra(AppConstants.SEARCH_BY_DISTRICT)) {
+        if (bundle.containsKey(AppConstants.SEARCH_BY_DISTRICT)) {
             startDistrictWiseSearch()
-        } else if (intent.hasExtra(AppConstants.SEARCH_BY_PINCODE)) {
+        } else if (bundle.containsKey(AppConstants.SEARCH_BY_PINCODE)) {
             startPincodeWiseSearch()
         }
     }
 
     private fun init() {
-        ageLimit = intent.getLongExtra(AppConstants.AGE_LIMIT, 0L)
+        ageLimit = bundle.getLong(AppConstants.AGE_LIMIT, 0L)
         vaccineList =
-            intent.getStringArrayListExtra(AppConstants.VACCINE_LIST) as ArrayList<String>
-        dose = intent.getStringExtra(AppConstants.DOSE)!!
+            bundle.getStringArrayList(AppConstants.VACCINE_LIST) as ArrayList<String>
+        dose = bundle.getString(AppConstants.DOSE, "")
         currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
 
         val layoutManager = LinearLayoutManager(this)
@@ -69,14 +71,14 @@ class ResultActivity : AppCompatActivity() {
 
     private fun startPincodeWiseSearch() {
         updateProgressBar(View.VISIBLE)
-        val pincode = intent.getStringExtra(AppConstants.SEARCH_BY_PINCODE)
-        viewModel.loadCalendarByPincode(pincode!!, ageLimit, vaccineList, dose, currentDate)
+        val pincode = bundle.getString(AppConstants.SEARCH_BY_PINCODE, "")
+        viewModel.loadCalendarByPincode(pincode, ageLimit, vaccineList, dose, currentDate)
     }
 
     private fun startDistrictWiseSearch() {
         updateProgressBar(View.VISIBLE)
-        val district_id = intent.getStringExtra(AppConstants.SEARCH_BY_DISTRICT)
-        viewModel.loadCalendarByDistrict(district_id!!, ageLimit, vaccineList, dose, currentDate)
+        val district_id = bundle.getString(AppConstants.SEARCH_BY_DISTRICT, "")
+        viewModel.loadCalendarByDistrict(district_id, ageLimit, vaccineList, dose, currentDate)
     }
 
     private fun updateProgressBar(visibility: Int) {

@@ -36,5 +36,6 @@ class AppConstants {
 
         val SEARCH_BY_PINCODE = "pincode"
         val SEARCH_BY_DISTRICT = "district"
+        val SEARCH_DATA = "search_data"
     }
 }
