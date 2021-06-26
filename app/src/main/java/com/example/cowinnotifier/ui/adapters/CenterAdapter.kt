@@ -19,19 +19,18 @@ class CenterAdapter(private var centerList: List<Center>) :
 
     override fun onBindViewHolder(holder: CenterViewHolder, position: Int) {
         val eachCenter = centerList[position]
-        holder.textViewCenterName.text = eachCenter.name
-        holder.textViewCenterAddress.text = eachCenter.address
+        holder.tvCenterName.text = eachCenter.name
 
         val layoutManager = LinearLayoutManager(
-            holder.recyclerviewSessions.context,
+            holder.rvSession.context,
             LinearLayoutManager.HORIZONTAL,
             false
         )
         layoutManager.initialPrefetchItemCount = eachCenter.sessions.size
 
         val sessionAdapter = SessionAdapter(eachCenter.sessions)
-        holder.recyclerviewSessions.layoutManager = layoutManager
-        holder.recyclerviewSessions.adapter = sessionAdapter
+        holder.rvSession.layoutManager = layoutManager
+        holder.rvSession.adapter = sessionAdapter
     }
 
     override fun getItemCount(): Int {
@@ -44,8 +43,7 @@ class CenterAdapter(private var centerList: List<Center>) :
     }
 
     inner class CenterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textViewCenterName = itemView.textview_center_name
-        val textViewCenterAddress = itemView.textview_center_address
-        val recyclerviewSessions = itemView.recyclerview_session_list
+        val tvCenterName = itemView.tvCenterName
+        val rvSession = itemView.rvSession
     }
 }

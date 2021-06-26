@@ -69,29 +69,33 @@ class ActivityViewModel @Inject constructor(private val apiRepository: APIReposi
     }
 
     fun loadCalendarByDistrict(
-        district_id: String, date: String, ageLimit: Long,
-        vaccineFilter: String
+        district_id: String,
+        ageLimit: Long,
+        vaccineList: ArrayList<String>,
+        dose: String,
+        date: String
     ) = CoroutineUtil.io {
         kotlin.runCatching {
             apiRepository.getCalendarByDistrict(district_id, date)
         }.onSuccess { centerAPIResponse ->
             val filteredCenterList =
-                SessionUtil.filterCenterList(centerAPIResponse, ageLimit, vaccineFilter)
+                SessionUtil.filterCenterList(centerAPIResponse, ageLimit, vaccineList, dose)
             centerList.postValue(filteredCenterList)
         }
     }
 
     fun loadCalendarByPincode(
         pincode: String,
-        date: String,
         ageLimit: Long,
-        vaccineFilter: String
+        vaccineList: ArrayList<String>,
+        dose: String,
+        date: String
     ) = CoroutineUtil.io {
         kotlin.runCatching {
             apiRepository.getCalendarByPincode(pincode, date)
         }.onSuccess { centerAPIResponse ->
             val filteredCenterList =
-                SessionUtil.filterCenterList(centerAPIResponse, ageLimit, vaccineFilter)
+                SessionUtil.filterCenterList(centerAPIResponse, ageLimit, vaccineList, dose)
             centerList.postValue(filteredCenterList)
         }
     }
@@ -136,7 +140,8 @@ class ActivityViewModel @Inject constructor(private val apiRepository: APIReposi
         val intent = Intent(context, ResultActivity::class.java).apply {
             putExtra(searchTypeKey, searchTypeValue)
             putExtra(AppConstants.AGE_LIMIT, ageLimit)
-            putExtra(AppConstants.VACCINE, vaccineFilter)
+            putExtra(AppConstants.DOSE, doseSelected)
+            putExtra(AppConstants.VACCINE_LIST, vaccineFilter)
         }
         context.startActivity(intent)
     }

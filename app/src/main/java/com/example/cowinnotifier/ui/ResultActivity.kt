@@ -1,6 +1,5 @@
 package com.example.cowinnotifier.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -34,9 +33,9 @@ class ResultActivity : AppCompatActivity() {
         init()
 
         if (intent.hasExtra(AppConstants.DISTRICT_ID)) {
-            startDistrictWiseSearch(intent)
+            startDistrictWiseSearch()
         } else if (intent.hasExtra(AppConstants.PINCODE)) {
-            startPincodeWiseSearch(intent)
+            startPincodeWiseSearch()
         }
     }
 
@@ -58,26 +57,26 @@ class ResultActivity : AppCompatActivity() {
         })
     }
 
-    private fun startPincodeWiseSearch(intent: Intent) {
+    private fun startPincodeWiseSearch() {
         updateProgressBar(View.VISIBLE)
         val pincode = intent.getStringExtra(AppConstants.PINCODE)
         val ageLimit = intent.getLongExtra(AppConstants.AGE_LIMIT, 0L)
-        var vaccineFilter = intent.getStringExtra(AppConstants.VACCINE)
-        vaccineFilter = vaccineFilter ?: ""
+        val vaccineList = intent.getStringArrayListExtra(AppConstants.VACCINE_LIST) as ArrayList<String>
+        val dose = intent.getStringExtra(AppConstants.DOSE)
         val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
 
-        viewModel.loadCalendarByPincode(pincode!!, currentDate, ageLimit, vaccineFilter)
+        viewModel.loadCalendarByPincode(pincode!!, ageLimit, vaccineList, dose!!, currentDate)
     }
 
-    private fun startDistrictWiseSearch(intent: Intent) {
+    private fun startDistrictWiseSearch() {
         updateProgressBar(View.VISIBLE)
         val district_id = intent.getStringExtra(AppConstants.DISTRICT_ID)
         val ageLimit = intent.getLongExtra(AppConstants.AGE_LIMIT, 0L)
-        var vaccineFilter = intent.getStringExtra(AppConstants.VACCINE)
-        vaccineFilter = vaccineFilter ?: ""
+        val vaccineList = intent.getStringArrayListExtra(AppConstants.VACCINE_LIST) as ArrayList<String>
+        val dose = intent.getStringExtra(AppConstants.DOSE)
         val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
 
-        viewModel.loadCalendarByDistrict(district_id!!, currentDate, ageLimit, vaccineFilter)
+        viewModel.loadCalendarByDistrict(district_id!!, ageLimit, vaccineList, dose!!, currentDate)
     }
 
     private fun updateProgressBar(visibility: Int) {

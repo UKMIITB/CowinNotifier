@@ -18,4 +18,6 @@ data class Session(
     val available_capacity: Long,
     val min_age_limit: Long,
     val vaccine: String,
+    val available_capacity_dose1: Long,
+    val available_capacity_dose2: Long
 )

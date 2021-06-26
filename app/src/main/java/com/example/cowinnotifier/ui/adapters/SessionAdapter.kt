@@ -3,10 +3,10 @@ package com.example.cowinnotifier.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cowinnotifier.R
 import com.example.cowinnotifier.model.Session
+import com.example.cowinnotifier.utils.GeneralUtil
 import kotlinx.android.synthetic.main.row_session.view.*
 
 class SessionAdapter(private val sessionList: List<Session>) :
@@ -19,23 +19,14 @@ class SessionAdapter(private val sessionList: List<Session>) :
 
     override fun onBindViewHolder(holder: SessionViewHolder, position: Int) {
         val eachSession = sessionList[position]
-        holder.textViewDate.text = eachSession.date
 
-        val context = holder.textViewDoses.context
+        holder.tvDate.text = GeneralUtil.getDateFromDateString(eachSession.date)
+        holder.tvMonth.text = GeneralUtil.getMonthFromDateString(eachSession.date)
 
-        if (eachSession.available_capacity < 10) {
-            holder.textViewDoses.background.setTint(ContextCompat.getColor(context, R.color.capacity_less_than_10))
-        } else if (eachSession.available_capacity < 20) {
-            holder.textViewDoses.background.setTint(ContextCompat.getColor(context, R.color.capacity_less_than_20))
-        } else {
-            holder.textViewDoses.background.setTint(ContextCompat.getColor(context, R.color.capacity_less_than_30))
-        }
-
-        holder.textViewDoses.text = eachSession.available_capacity.toString()
-        holder.textViewVaccineName.text = eachSession.vaccine
-
-        val ageLimitText = "Age ${eachSession.min_age_limit}+"
-        holder.textViewAgeLimit.text = ageLimitText
+        holder.tvDose.text = "1st" // TODO update as per dose input
+        holder.tvVaccine.text = eachSession.vaccine
+        holder.tvSlots.text = eachSession.available_capacity.toString()
+        holder.tvAge.text = eachSession.min_age_limit.toString()
     }
 
     override fun getItemCount(): Int {
@@ -43,9 +34,11 @@ class SessionAdapter(private val sessionList: List<Session>) :
     }
 
     inner class SessionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textViewDate = itemView.textview_date
-        val textViewDoses = itemView.textview_doses
-        val textViewVaccineName = itemView.textview_vaccine_name
-        val textViewAgeLimit = itemView.textview_age_limit
+        val tvDate = itemView.tvDate
+        val tvMonth = itemView.tvMonth
+        val tvDose = itemView.tvDose
+        val tvVaccine = itemView.tvVaccine
+        val tvAge = itemView.tvAge
+        val tvSlots = itemView.tvSlots
     }
 }

@@ -8,26 +8,29 @@ class SessionUtil {
         fun isValidSessionForNotificationPush(
             session: Session,
             ageLimit: Long,
-            vaccineFilter: String
+            vaccineList: ArrayList<String>,
+            dose: String
         ): Boolean {
             return (isValidSession(
                 session,
                 ageLimit,
-                vaccineFilter
-            ) && session.available_capacity > 0)
+                vaccineList,
+                dose
+            ))
         }
 
         fun filterCenterList(
             centerList: List<Center>,
             ageLimit: Long,
-            vaccineFilter: String
+            vaccineList: ArrayList<String>,
+            dose: String
         ): List<Center> {
             val filteredCenterList: MutableList<Center> = mutableListOf()
 
             for (eachCenter in centerList) {
                 val sessionList: MutableList<Session> = mutableListOf()
                 for (eachSession in eachCenter.sessions) {
-                    if (isValidSession(eachSession, ageLimit, vaccineFilter)) {
+                    if (isValidSession(eachSession, ageLimit, vaccineList, dose)) {
                         sessionList.add(eachSession)
                     }
                 }
@@ -35,18 +38,19 @@ class SessionUtil {
                     filteredCenterList.add(Center(eachCenter.name, eachCenter.address, sessionList))
                 }
             }
-
             return filteredCenterList
         }
 
         private fun isValidSession(
             session: Session,
             ageLimit: Long,
-            vaccineFilter: String
+            vaccineList: ArrayList<String>,
+            dose: String
         ): Boolean {
             val vaccineResult =
-                if (vaccineFilter.isEmpty()) true else session.vaccine == vaccineFilter
+                if (vaccineList.isEmpty()) true else session.vaccine in vaccineList
             val ageLimitResult = if (ageLimit == 0L) true else session.min_age_limit == ageLimit
+            //TODO add dose filter here
             return (vaccineResult && ageLimitResult)
         }
     }

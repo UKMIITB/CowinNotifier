@@ -31,7 +31,8 @@ class AppConstants {
         val DOSE_FILTER_MAP = mapOf("1st" to "available_capacity_dose1", "2nd" to "available_capacity_dose2")
 
         val AGE_LIMIT = "ageLimit"
-        val VACCINE = "vaccine"
+        val VACCINE_LIST = "vaccine"
+        val DOSE = "dose"
 
         val SEARCH_BY_PINCODE = "pincode"
         val SEARCH_BY_DISTRICT = "district"

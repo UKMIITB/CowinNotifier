@@ -28,7 +28,7 @@ class CurrentSearchActivity : AppCompatActivity() {
             val pincode = viewModel.getStringSharedPreferenceValue(AppConstants.PINCODE)
             val districtName = viewModel.getStringSharedPreferenceValue(AppConstants.DISTRICT_NAME)
             val stateName = viewModel.getStringSharedPreferenceValue(AppConstants.STATE_NAME)
-            val vaccine = viewModel.getStringSharedPreferenceValue(AppConstants.VACCINE)
+            val vaccine = viewModel.getStringSharedPreferenceValue(AppConstants.VACCINE_LIST)
             val age = viewModel.getLongSharedPreferenceValue(AppConstants.AGE_LIMIT)
 
             val searchParameter =
