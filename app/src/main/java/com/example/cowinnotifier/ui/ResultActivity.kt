@@ -32,9 +32,9 @@ class ResultActivity : AppCompatActivity() {
 
         init()
 
-        if (intent.hasExtra(AppConstants.DISTRICT_ID)) {
+        if (intent.hasExtra(AppConstants.SEARCH_BY_DISTRICT)) {
             startDistrictWiseSearch()
-        } else if (intent.hasExtra(AppConstants.PINCODE)) {
+        } else if (intent.hasExtra(AppConstants.SEARCH_BY_PINCODE)) {
             startPincodeWiseSearch()
         }
     }
@@ -59,9 +59,10 @@ class ResultActivity : AppCompatActivity() {
 
     private fun startPincodeWiseSearch() {
         updateProgressBar(View.VISIBLE)
-        val pincode = intent.getStringExtra(AppConstants.PINCODE)
+        val pincode = intent.getStringExtra(AppConstants.SEARCH_BY_PINCODE)
         val ageLimit = intent.getLongExtra(AppConstants.AGE_LIMIT, 0L)
-        val vaccineList = intent.getStringArrayListExtra(AppConstants.VACCINE_LIST) as ArrayList<String>
+        val vaccineList =
+            intent.getStringArrayListExtra(AppConstants.VACCINE_LIST) as ArrayList<String>
         val dose = intent.getStringExtra(AppConstants.DOSE)
         val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
 
@@ -70,9 +71,10 @@ class ResultActivity : AppCompatActivity() {
 
     private fun startDistrictWiseSearch() {
         updateProgressBar(View.VISIBLE)
-        val district_id = intent.getStringExtra(AppConstants.DISTRICT_ID)
+        val district_id = intent.getStringExtra(AppConstants.SEARCH_BY_DISTRICT)
         val ageLimit = intent.getLongExtra(AppConstants.AGE_LIMIT, 0L)
-        val vaccineList = intent.getStringArrayListExtra(AppConstants.VACCINE_LIST) as ArrayList<String>
+        val vaccineList =
+            intent.getStringArrayListExtra(AppConstants.VACCINE_LIST) as ArrayList<String>
         val dose = intent.getStringExtra(AppConstants.DOSE)
         val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
 
