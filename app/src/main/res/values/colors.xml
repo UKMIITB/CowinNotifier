@@ -17,4 +17,5 @@
     <color name="sub_heading_text">#E4E4E4</color>
     <color name="text_color">#707070</color>
     <color name="button_disabled">#D8D5D5</color>
+    <color name="screen_background">#E3E3E3</color>
 </resources>
