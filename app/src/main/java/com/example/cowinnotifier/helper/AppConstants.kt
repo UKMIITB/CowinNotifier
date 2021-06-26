@@ -29,6 +29,7 @@ class AppConstants {
         val VACCINE_FILTER_MAP = mapOf("None" to "", "Covishield" to "COVISHIELD", "Covaxin" to "COVAXIN", "Sputnik" to "SPUTNIK V")
 
         val DOSE_FILTER_MAP = mapOf("1st" to "available_capacity_dose1", "2nd" to "available_capacity_dose2")
+        val STRING_TO_DOSE_MAP = mapOf("available_capacity_dose1" to "1st", "available_capacity_dose2" to "2nd", "" to "1st")
 
         val AGE_LIMIT = "ageLimit"
         val VACCINE_LIST = "vaccine"

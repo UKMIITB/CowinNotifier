@@ -54,7 +54,7 @@ class ResultActivity : AppCompatActivity() {
         currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
 
         val layoutManager = LinearLayoutManager(this)
-        centerAdapter = CenterAdapter(centerList)
+        centerAdapter = CenterAdapter(centerList, bundle)
 
         recyclerview_center_list.layoutManager = layoutManager
         recyclerview_center_list.adapter = centerAdapter

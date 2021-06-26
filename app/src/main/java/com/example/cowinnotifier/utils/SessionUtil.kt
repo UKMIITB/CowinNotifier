@@ -1,5 +1,6 @@
 package com.example.cowinnotifier.utils
 
+import com.example.cowinnotifier.helper.AppConstants
 import com.example.cowinnotifier.model.Center
 import com.example.cowinnotifier.model.Session
 
@@ -47,11 +48,14 @@ class SessionUtil {
             vaccineList: ArrayList<String>,
             dose: String
         ): Boolean {
-            val vaccineResult =
-                if (vaccineList.isEmpty()) true else session.vaccine in vaccineList
-            val ageLimitResult = if (ageLimit == 0L) true else session.min_age_limit == ageLimit
-            //TODO add dose filter here
-            return (vaccineResult && ageLimitResult)
+            val vaccineResult = session.vaccine in vaccineList
+            val ageLimitResult = session.min_age_limit == ageLimit
+            val doseResult: Boolean = if (AppConstants.STRING_TO_DOSE_MAP[dose].equals("1st")) {
+                session.available_capacity_dose1 > 0
+            } else {
+                session.available_capacity_dose2 > 0
+            }
+            return (vaccineResult && ageLimitResult && doseResult)
         }
     }
 }

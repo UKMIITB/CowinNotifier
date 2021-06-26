@@ -1,5 +1,6 @@
 package com.example.cowinnotifier.ui.adapters
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,7 @@ import com.example.cowinnotifier.R
 import com.example.cowinnotifier.model.Center
 import kotlinx.android.synthetic.main.row_center.view.*
 
-class CenterAdapter(private var centerList: List<Center>) :
+class CenterAdapter(private var centerList: List<Center>, private val bundle: Bundle) :
     RecyclerView.Adapter<CenterAdapter.CenterViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CenterViewHolder {
@@ -23,12 +24,12 @@ class CenterAdapter(private var centerList: List<Center>) :
 
         val layoutManager = LinearLayoutManager(
             holder.rvSession.context,
-            LinearLayoutManager.HORIZONTAL,
+            LinearLayoutManager.VERTICAL,
             false
         )
         layoutManager.initialPrefetchItemCount = eachCenter.sessions.size
 
-        val sessionAdapter = SessionAdapter(eachCenter.sessions)
+        val sessionAdapter = SessionAdapter(eachCenter.sessions, bundle)
         holder.rvSession.layoutManager = layoutManager
         holder.rvSession.adapter = sessionAdapter
     }
