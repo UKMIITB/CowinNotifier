@@ -2,6 +2,7 @@ package com.example.cowinnotifier.ui
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -59,6 +60,13 @@ class ResultActivity : AppCompatActivity() {
         recyclerview_center_list.layoutManager = layoutManager
         recyclerview_center_list.adapter = centerAdapter
 
+        val vaccineArrayAdapter = ArrayAdapter(this, R.layout.row_vaccine, vaccineList)
+        listview_vaccine.adapter = vaccineArrayAdapter
+
+        tvDose.text = if (AppConstants.STRING_TO_DOSE_MAP[dose].equals("1st")) "1st Dose" else "2nd Dose"
+        val ageText = "$ageLimit+ yrs"
+        tvAge.text = ageText
+
         viewModel.observeCenterList().observe(this, {
             centerAdapter.updateAdapterData(it)
             updateProgressBar(View.GONE)
@@ -72,12 +80,16 @@ class ResultActivity : AppCompatActivity() {
     private fun startPincodeWiseSearch() {
         updateProgressBar(View.VISIBLE)
         val pincode = bundle.getString(AppConstants.SEARCH_BY_PINCODE, "")
+        val locationText = "Within Pin: $pincode"
+        tvLocation.text = locationText
         viewModel.loadCalendarByPincode(pincode, ageLimit, vaccineList, dose, currentDate)
     }
 
     private fun startDistrictWiseSearch() {
         updateProgressBar(View.VISIBLE)
         val district_id = bundle.getString(AppConstants.SEARCH_BY_DISTRICT, "")
+        val locationText = "Within District: $district_id"
+        tvLocation.text = locationText
         viewModel.loadCalendarByDistrict(district_id, ageLimit, vaccineList, dose, currentDate)
     }
 

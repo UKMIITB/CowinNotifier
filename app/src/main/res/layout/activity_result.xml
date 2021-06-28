@@ -1,5 +1,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/screen_background">
@@ -28,8 +29,55 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
+        android:divider="@null"
+        android:dividerHeight="0dp"
         app:layout_constraintBottom_toBottomOf="@id/view_header"
         app:layout_constraintLeft_toRightOf="@id/iv_back_button"
+        app:layout_constraintTop_toTopOf="@id/view_header"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <TextView
+        android:id="@+id/tvDose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="28dp"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toRightOf="@id/listview_vaccine"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="2nd Dose" />
+
+    <TextView
+        android:id="@+id/tvAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toRightOf="@id/tvDose"
+        app:layout_constraintTop_toTopOf="@id/tvDose"
+        tools:text="18-45 yrs" />
+
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/view_header"
+        app:layout_constraintLeft_toLeftOf="@id/tvDose"
+        app:layout_constraintTop_toBottomOf="@id/tvDose"
+        tools:text="Within Pin: 812001" />
+
+    <ImageView
+        android:id="@+id/ivNotificationButton"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/notification_on"
+        app:layout_constraintBottom_toBottomOf="@id/view_header"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/view_header" />
 
     <androidx.recyclerview.widget.RecyclerView
