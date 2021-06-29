@@ -91,7 +91,11 @@ class ResultActivity : AppCompatActivity() {
         updateProgressBar(View.VISIBLE)
         val district_id = bundle.getString(AppConstants.SEARCH_BY_DISTRICT, "")
         CoroutineUtil.io {
-            val districtName = viewModel.getDistrictNameFromDistrictId(district_id)
+            var districtName = viewModel.getDistrictNameFromDistrictId(district_id)
+            if (districtName.length >= 15) {
+                districtName = districtName.substring(0, 13)
+                districtName = "$districtName..."
+            }
             val locationText = "Within District: $districtName"
             tvLocation.text = locationText
         }
