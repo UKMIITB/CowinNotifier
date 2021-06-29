@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.cowinnotifier.model.District
+import com.example.cowinnotifier.model.SearchParameter
 import com.example.cowinnotifier.model.State
 
 @Dao
@@ -21,4 +22,7 @@ interface Dao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertDistrict(vararg district: District)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertSearchParameter(searchParameter: SearchParameter)
 }

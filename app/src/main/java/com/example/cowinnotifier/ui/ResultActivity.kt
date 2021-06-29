@@ -97,24 +97,24 @@ class ResultActivity : AppCompatActivity() {
         progressBar.visibility = visibility
     }
 
-    override fun onBackPressed() {
-        if (imageview_no_data.visibility == View.VISIBLE) {
-            super.onBackPressed()
-        } else {
-            val alertDialog = AlertDialog.Builder(this)
-            alertDialog.setMessage(AppConstants.ALERT_DIALOG_MESSAGE)
-            alertDialog.setTitle(AppConstants.ALERT_DIALOG_TITLE)
-            alertDialog.setPositiveButton("Yes") { _, _ ->
-                SchedulerUtil.scheduleNewWork(applicationContext)
-                super.onBackPressed()
-            }
-
-            alertDialog.setNegativeButton("No") { _, _ ->
-                super.onBackPressed()
-            }
-
-            alertDialog.setCancelable(true)
-            alertDialog.create().show()
-        }
-    }
+//    override fun onBackPressed() {
+//        if (imageview_no_data.visibility == View.VISIBLE) {
+//            super.onBackPressed()
+//        } else {
+//            val alertDialog = AlertDialog.Builder(this)
+//            alertDialog.setMessage(AppConstants.ALERT_DIALOG_MESSAGE)
+//            alertDialog.setTitle(AppConstants.ALERT_DIALOG_TITLE)
+//            alertDialog.setPositiveButton("Yes") { _, _ ->
+//                SchedulerUtil.scheduleNewWork(applicationContext)
+//                super.onBackPressed()
+//            }
+//
+//            alertDialog.setNegativeButton("No") { _, _ ->
+//                super.onBackPressed()
+//            }
+//
+//            alertDialog.setCancelable(true)
+//            alertDialog.create().show()
+//        }
+//    }
 }

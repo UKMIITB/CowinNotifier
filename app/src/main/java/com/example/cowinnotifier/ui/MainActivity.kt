@@ -17,6 +17,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.commit
 import com.example.cowinnotifier.R
 import com.example.cowinnotifier.helper.AppConstants
+import com.example.cowinnotifier.model.SearchParameter
 import com.example.cowinnotifier.viewmodel.ActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
@@ -167,6 +168,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startSearch(key: String, value: String) {
+        viewmodel.insertSearchParameter(SearchParameter(1, getVaccineSelectedList(), doseSelected!!, minAgeSelected, key, value))
         viewmodel.startActivityFromIntent(key, value, this, minAgeSelected, doseSelected!!, getVaccineSelectedList())
     }
 

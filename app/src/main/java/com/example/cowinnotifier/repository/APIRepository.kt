@@ -1,6 +1,7 @@
 package com.example.cowinnotifier.repository
 
 import com.example.cowinnotifier.model.District
+import com.example.cowinnotifier.model.SearchParameter
 import com.example.cowinnotifier.model.State
 import com.example.cowinnotifier.repository.retrofit.APIService
 import com.example.cowinnotifier.repository.room.Dao
@@ -25,4 +26,7 @@ class APIRepository @Inject constructor(private val apiService: APIService, priv
     fun insertState(state: State) = dao.insertState(state)
 
     fun insertDistrict(district: District) = dao.insertDistrict(district)
+
+    fun insertSearchParameter(searchParameter: SearchParameter) =
+        dao.insertSearchParameter(searchParameter)
 }

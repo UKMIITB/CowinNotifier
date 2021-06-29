@@ -10,6 +10,7 @@ import com.example.cowinnotifier.MyApplication
 import com.example.cowinnotifier.helper.AppConstants
 import com.example.cowinnotifier.model.Center
 import com.example.cowinnotifier.model.District
+import com.example.cowinnotifier.model.SearchParameter
 import com.example.cowinnotifier.model.State
 import com.example.cowinnotifier.repository.APIRepository
 import com.example.cowinnotifier.ui.ResultActivity
@@ -129,6 +130,11 @@ class ActivityViewModel @Inject constructor(private val apiRepository: APIReposi
             apply()
         }
     }
+
+    fun insertSearchParameter(searchParameter: SearchParameter) =
+        CoroutineUtil.io {
+            apiRepository.insertSearchParameter(searchParameter)
+        }
 
     fun startActivityFromIntent(
         searchTypeKey: String,
