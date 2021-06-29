@@ -17,6 +17,7 @@ import com.example.cowinnotifier.ui.ResultActivity
 import com.example.cowinnotifier.utils.CoroutineUtil
 import com.example.cowinnotifier.utils.SessionUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -135,6 +136,9 @@ class ActivityViewModel @Inject constructor(private val apiRepository: APIReposi
         CoroutineUtil.io {
             apiRepository.insertSearchParameter(searchParameter)
         }
+
+    suspend fun getDistrictNameFromDistrictId(district_id: String) =
+        apiRepository.getDistrictNameFromDistrictId(district_id.toLong())
 
     fun startActivityFromIntent(
         searchTypeKey: String,

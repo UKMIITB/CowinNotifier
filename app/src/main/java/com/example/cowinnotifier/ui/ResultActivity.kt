@@ -11,6 +11,7 @@ import com.example.cowinnotifier.R
 import com.example.cowinnotifier.helper.AppConstants
 import com.example.cowinnotifier.model.Center
 import com.example.cowinnotifier.ui.adapters.CenterAdapter
+import com.example.cowinnotifier.utils.CoroutineUtil
 import com.example.cowinnotifier.utils.SchedulerUtil
 import com.example.cowinnotifier.viewmodel.ActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,7 +64,8 @@ class ResultActivity : AppCompatActivity() {
         val vaccineArrayAdapter = ArrayAdapter(this, R.layout.row_vaccine, vaccineList)
         listview_vaccine.adapter = vaccineArrayAdapter
 
-        tvDose.text = if (AppConstants.STRING_TO_DOSE_MAP[dose].equals("1st")) "1st Dose" else "2nd Dose"
+        tvDose.text =
+            if (AppConstants.STRING_TO_DOSE_MAP[dose].equals("1st")) "1st Dose" else "2nd Dose"
         val ageText = "$ageLimit+ yrs"
         tvAge.text = ageText
 
@@ -88,8 +90,11 @@ class ResultActivity : AppCompatActivity() {
     private fun startDistrictWiseSearch() {
         updateProgressBar(View.VISIBLE)
         val district_id = bundle.getString(AppConstants.SEARCH_BY_DISTRICT, "")
-        val locationText = "Within District: $district_id"
-        tvLocation.text = locationText
+        CoroutineUtil.io {
+            val districtName = viewModel.getDistrictNameFromDistrictId(district_id)
+            val locationText = "Within District: $districtName"
+            tvLocation.text = locationText
+        }
         viewModel.loadCalendarByDistrict(district_id, ageLimit, vaccineList, dose, currentDate)
     }
 

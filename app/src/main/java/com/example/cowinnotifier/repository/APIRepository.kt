@@ -27,6 +27,9 @@ class APIRepository @Inject constructor(private val apiService: APIService, priv
 
     fun insertDistrict(district: District) = dao.insertDistrict(district)
 
+    suspend fun getDistrictNameFromDistrictId(district_id: Long) =
+        dao.getDistrictNameFromDistrictId(district_id)
+
     fun insertSearchParameter(searchParameter: SearchParameter) =
         dao.insertSearchParameter(searchParameter)
 }

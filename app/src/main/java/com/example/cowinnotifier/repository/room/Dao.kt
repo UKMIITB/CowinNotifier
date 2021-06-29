@@ -23,6 +23,9 @@ interface Dao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertDistrict(vararg district: District)
 
+    @Query("SELECT district_name FROM District WHERE district_id = :district_id")
+    suspend fun getDistrictNameFromDistrictId(district_id: Long): String
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertSearchParameter(searchParameter: SearchParameter)
 }
