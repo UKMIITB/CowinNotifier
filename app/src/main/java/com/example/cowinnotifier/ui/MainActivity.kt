@@ -33,13 +33,14 @@ class MainActivity : AppCompatActivity() {
 
     private val pincodeSearchFragment = PincodeSearchFragment()
     private val districtSearchFragment = DistrictSearchFragment()
+    private val locationSearchFragment = LocationSearchFragment()
 
     private val vaccineSelected = mutableListOf<String>()
     private var currentActiveFragment = PINCODE_FRAGMENT
     private var doseSelected = AppConstants.DOSE_FILTER_MAP["1st"]
     private var minAgeSelected: Long = 18
 
-    private val viewmodel : ActivityViewModel by viewModels()
+    private val viewmodel: ActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -119,10 +120,18 @@ class MainActivity : AppCompatActivity() {
         }
         if (vaccineSelected.size == 0) {
             button_show_results.isEnabled = false
-            button_show_results.background = ResourcesCompat.getDrawable(resources, R.drawable.button_rounded_corners_disabled, null)
+            button_show_results.background = ResourcesCompat.getDrawable(
+                resources,
+                R.drawable.button_rounded_corners_disabled,
+                null
+            )
         } else {
             button_show_results.isEnabled = true
-            button_show_results.background = ResourcesCompat.getDrawable(resources, R.drawable.button_rounded_corners_enabled, null)
+            button_show_results.background = ResourcesCompat.getDrawable(
+                resources,
+                R.drawable.button_rounded_corners_enabled,
+                null
+            )
         }
     }
 
@@ -132,7 +141,7 @@ class MainActivity : AppCompatActivity() {
             when (code) {
                 PINCODE_FRAGMENT -> replace(R.id.fragment_container, pincodeSearchFragment)
                 DISTRICT_FRAGMENT -> replace(R.id.fragment_container, districtSearchFragment)
-                GPS_FRAGMENT -> print("GPS Fragment opening")//todo start gps fragment
+                GPS_FRAGMENT -> replace(R.id.fragment_container, locationSearchFragment)
             }
         }
     }
@@ -168,8 +177,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startSearch(key: String, value: String) {
-        viewmodel.insertSearchParameter(SearchParameter(1, getVaccineSelectedList(), doseSelected!!, minAgeSelected, key, value))
-        viewmodel.startActivityFromIntent(key, value, this, minAgeSelected, doseSelected!!, getVaccineSelectedList())
+        viewmodel.insertSearchParameter(
+            SearchParameter(
+                1,
+                getVaccineSelectedList(),
+                doseSelected!!,
+                minAgeSelected,
+                key,
+                value
+            )
+        )
+        viewmodel.startActivityFromIntent(
+            key,
+            value,
+            this,
+            minAgeSelected,
+            doseSelected!!,
+            getVaccineSelectedList()
+        )
     }
 
     private fun getVaccineSelectedList(): ArrayList<String> {

@@ -43,4 +43,5 @@
     <string name="select_state">Select State</string>
     <string name="select_district">Select District</string>
     <string name="slots_vacant">slots vacant</string>
+    <string name="auto_detect_location">Auto detect location</string>
 </resources>
