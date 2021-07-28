@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cowinnotifier.R
@@ -12,7 +11,6 @@ import com.example.cowinnotifier.helper.AppConstants
 import com.example.cowinnotifier.model.Center
 import com.example.cowinnotifier.ui.adapters.CenterAdapter
 import com.example.cowinnotifier.utils.CoroutineUtil
-import com.example.cowinnotifier.utils.SchedulerUtil
 import com.example.cowinnotifier.viewmodel.ActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_result.*
@@ -34,6 +32,7 @@ class ResultActivity : AppCompatActivity() {
     private lateinit var currentDate: String
 
     private lateinit var bundle: Bundle
+    private var isNotificationOn: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,6 +76,20 @@ class ResultActivity : AppCompatActivity() {
                 textview_no_data_message.visibility = View.VISIBLE
             }
         })
+
+        iv_back_button.setOnClickListener {
+            onBackPressed()
+        }
+
+        ivNotificationButton.setOnClickListener {
+            isNotificationOn = if (isNotificationOn) {
+                ivNotificationButton.setImageResource(R.drawable.notification_off_blue)
+                false
+            } else {
+                ivNotificationButton.setImageResource(R.drawable.notification_on_blue)
+                true
+            }
+        }
     }
 
     private fun startPincodeWiseSearch() {
